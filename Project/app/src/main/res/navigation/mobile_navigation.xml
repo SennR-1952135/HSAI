@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_in_store"
+        android:name="com.example.project.ui.in_store.InStoreFragment"
+        android:label="@string/title_in_store"
+        tools:layout="@layout/fragment_in_store" />
+
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="com.example.project.ui.search.SearchFragment"
+        android:label="@string/title_search"
+        tools:layout="@layout/fragment_shopping_cart" />
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.project.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_wishlist"
+        android:name="com.example.project.ui.wishlist.WishlistFragment"
+        android:label="@string/title_wishlist"
+        tools:layout="@layout/fragment_wishlist" />
+
+    <fragment
+        android:id="@+id/navigation_shopping_cart"
+        android:name="com.example.project.ui.shopping_cart.ShoppingCartFragment"
+        android:label="@string/title_shopping_cart"
+        tools:layout="@layout/fragment_shopping_cart" />
+</navigation>

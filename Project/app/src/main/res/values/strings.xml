@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Project</string>
+    <string name="title_in_store">In-Store</string>
+    <string name="title_search">Search</string>
+    <string name="title_home">Home</string>
+    <string name="title_wishlist">Wishlist</string>
+    <string name="title_shopping_cart">Shopping Cart</string>
+</resources>
