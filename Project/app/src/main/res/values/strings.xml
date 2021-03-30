@@ -5,4 +5,11 @@
     <string name="title_home">Home</string>
     <string name="title_wishlist">Wishlist</string>
     <string name="title_shopping_cart">Shopping Cart</string>
+    <string name="title_btn_in_store_search_in_shop">Zoek in winkel</string>
+    <string name="title_btn_in_store_scan">Scan barcode</string>
+    <string name="title_btn_in_store_whishlist">Whishlist</string>
+    <string name="title_btn_in_store_promotions">promotions</string>
+    <string name="title_label_in_store_queue_checkout">Kassa:</string>
+    <string name="title_label_in_store_queue_fitting_rooms">Pashokjes:</string>
+    <string name="title_btn_in_store_search_new_store">Zoek een nieuwe winkel</string>
 </resources>
