@@ -23,7 +23,7 @@ public class InStoreFragment extends Fragment {
         inStoreViewModel =
                 new ViewModelProvider(this).get(InStoreViewModel.class);
         View root = inflater.inflate(R.layout.fragment_in_store, container, false);
-        final TextView textView = root.findViewById(R.id.text_search);
+        final TextView textView = root.findViewById(R.id.text_in_store_store_name);
         inStoreViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {

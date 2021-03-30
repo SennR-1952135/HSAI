@@ -10,7 +10,7 @@ public class InStoreViewModel extends ViewModel {
 
     public InStoreViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is In Store fragment");
+        mText.setValue("This is In Store fragment test");
     }
 
     public LiveData<String> getText() {
