@@ -9,8 +9,13 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.room.Room;
 
 public class MainActivity extends AppCompatActivity {
+
+    AppDatabse db;
+    StoreDao storeDao;
+    ProductDao productDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +30,14 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+        databaseInit();
+    }
+
+    private void databaseInit(){
+        db = Room.databaseBuilder(getApplicationContext(), AppDatabse.class, "App_Database").allowMainThreadQueries().build();
+        storeDao = db.storeDao();
+        productDao = db.productDao();
     }
 
 }
