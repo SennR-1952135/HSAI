@@ -16,7 +16,7 @@ public interface StoreDao {
     void delete(Store winkel);
 
     @Query("Select * FROM Store where mname LIKE :name")
-    Product getByName(String name);
+    Store getByName(String name);
 
     @Query("SELECT * FROM Store")
     ArrayList<Store> getAll();

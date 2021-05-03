@@ -19,6 +19,9 @@ public interface ProductDao {
     @Query("Select * FROM Product where name LIKE :name")
     Product getByName(String name);
 
+    @Query("Select * FROM Product where name LIKE :name AND store == :store")
+    Product getByNameAndStore(String name, Store store);
+
     @Query("SELECT * FROM Product")
     ArrayList<Product> getAll();
 }

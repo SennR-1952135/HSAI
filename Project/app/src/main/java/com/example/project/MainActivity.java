@@ -31,13 +31,36 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        databaseInit();
+        databaseInit(true);
     }
 
-    private void databaseInit(){
+    private void databaseInit(boolean loadData){
         db = Room.databaseBuilder(getApplicationContext(), AppDatabse.class, "App_Database").allowMainThreadQueries().build();
         storeDao = db.storeDao();
         productDao = db.productDao();
+
+        if(loadData){
+            storeDao.insert(new Store("C&A", "Diepenbeek"));
+            storeDao.insert(new Store("H&M", "Hasselt"));
+            productDao.insert(new Product("Levi's T-shirt", "een random tshirt van levi's", 63.2f, storeDao.getByName("C&A")));
+            productDao.insert(new Product("Levi's T-shirt2", "een random tshirt van levi's", 60f, storeDao.getByName("H&M")));
+            productDao.insert(new Product("Levi's T-shirt3", "een random tshirt van levi's", 63.2f, storeDao.getByName("C&A")));
+            productDao.insert(new Product("Levi's T-shirt4", "een random tshirt van levi's", 50f, storeDao.getByName("H&M")));
+            productDao.insert(new Product("Random andere T-shirt", "een random tshirt van levi's", 50f, storeDao.getByName("H&M")));
+            productDao.insert(new Product("Random andere T-shirt", "een random tshirt van levi's", 50f, storeDao.getByName("C&A")));
+            productDao.insert(new Product("Random Broek", "een random tshirt van levi's", 50f, storeDao.getByName("H&M")));
+            productDao.insert(new Product("Random Broek", "een random tshirt van levi's", 50f, storeDao.getByName("C&A")));
+            productDao.insert(new Product("Random andere Broek", "een random tshirt van levi's", 50f, storeDao.getByName("C&A")));
+            productDao.insert(new Product("Levi's T-shirt", "een random tshirt van levi's", 63.2f, storeDao.getByName("C&A")));
+            productDao.insert(new Product("Levi's T-shirt2", "een random tshirt van levi's", 60f, storeDao.getByName("H&M")));
+            productDao.insert(new Product("Levi's T-shirt3", "een random tshirt van levi's", 63.2f, storeDao.getByName("C&A")));
+            productDao.insert(new Product("Levi's T-shirt4", "een random tshirt van levi's", 50f, storeDao.getByName("H&M")));
+            productDao.insert(new Product("Random andere T-shirt", "een random tshirt van levi's", 50f, storeDao.getByName("H&M")));
+            productDao.insert(new Product("Random andere T-shirt", "een random tshirt van levi's", 50f, storeDao.getByName("C&A")));
+            productDao.insert(new Product("Random Broek", "een random tshirt van levi's", 50f, storeDao.getByName("H&M")));
+            productDao.insert(new Product("Random Broek", "een random tshirt van levi's", 50f, storeDao.getByName("C&A")));
+            productDao.insert(new Product("Random andere Broek", "een random tshirt van levi's", 50f, storeDao.getByName("C&A")));
+        }
     }
 
 }
