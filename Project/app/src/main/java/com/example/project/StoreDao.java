@@ -2,7 +2,7 @@ package com.example.project;
 
 import androidx.room.*;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Dao
 public interface StoreDao {
@@ -15,9 +15,12 @@ public interface StoreDao {
     @Delete
     void delete(Store winkel);
 
-    @Query("Select * FROM Store where mname LIKE :name")
+    @Query("Select * FROM Store where mName LIKE :name")
     Store getByName(String name);
 
     @Query("SELECT * FROM Store")
-    ArrayList<Store> getAll();
+    List<Store> getAll();
+
+    @Query("SELECT storeID FROM Store WHERE mName LIKE :name")
+    long getIDByName(String name);
 }

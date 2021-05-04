@@ -6,19 +6,19 @@ import androidx.room.*;
 public class Product {
 
     @PrimaryKey(autoGenerate = true)
-    public int uid;
+    public long productID;
 
     public float mPrice;
     public String mName;
     public String mBeschrijving;
-    public Store mWinkel;
+    public long mWinkelID;
 
-    public Product(String name, String beschrijving, float price, Store winkel){
+    public Product(String name, String beschrijving, float price, long winkelID){
         mPrice = price;
         mName = name;
         mBeschrijving = beschrijving;
         mPrice = price;
-        mWinkel = winkel;
+        mWinkelID = winkelID;
     }
 
 

@@ -7,12 +7,10 @@ import java.util.ArrayList;
 @Entity
 public class Store {
     @PrimaryKey(autoGenerate = true)
-    public int uid;
+    public long storeID;
 
     public String mName;
     public String mLocatie;
-
-    public ArrayList<Product> productArrayList;
 
 
     public Store(String name, String locatie){
