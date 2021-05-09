@@ -21,7 +21,7 @@ public class ShoppingCart extends Observable {
     public float getTotal(){
         float total = 0;
         for(ShoppingCartItem i: mItems){
-            total+= i.getItem().mPrice * i.getQuantity();
+            total+= i.getItem().getPrice() * i.getQuantity();
         }
         return total;
     }
@@ -46,7 +46,7 @@ public class ShoppingCart extends Observable {
     public void addItem(Product item){
         // First check if item is already in wishlist.
         for(ShoppingCartItem i: mItems){
-            if(i.getItem().mName.equals(item.mName)){
+            if(i.getItem().getName().equals(item.getName())){
                 i.addOneQuantity();
                 setChanged();
                 notifyObservers();

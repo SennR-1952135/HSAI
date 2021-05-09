@@ -1,78 +1,76 @@
 package com.example.project.ui.home;
 
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.project.DataBase.DataBasee;
+import com.example.project.DataBase.ProductEntity;
 import com.example.project.Product;
 import com.example.project.Promotion;
 import com.example.project.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    private ArrayList<Promotion> mPromList;
-    private PromotionAdapter mPromotionAdapter;
-    private Menu mMenu;
-    private ArrayList<Product> mDiscountedItems;
-    private LinearLayoutManager mPromotionLayoutManager;
+    private ArrayList<Product> mPopularList;
+    private ProductAdapter mPopularAdapter;
+    private LinearLayoutManager mPopularLayoutManager;
+
 
     public HomeFragment(){ }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-        return rootView;
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-        mPromList = new ArrayList<Promotion>();
-        mDiscountedItems = new ArrayList<Product>();
-        mPromotionAdapter = new PromotionAdapter(mPromList);
-
-        testData();
-
-
+        mPopularList = new ArrayList<Product>();
+        mPopularAdapter = new ProductAdapter(mPopularList, this);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setupPromotions();
-    }
-    private void setupPromotions(){
-        RecyclerView promotionRecyclerView = getView().findViewById(R.id.home_promotion_list);
-        mPromotionLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-        mPromotionLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        promotionRecyclerView.setLayoutManager(mPromotionLayoutManager);
-        promotionRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        promotionRecyclerView.setAdapter(mPromotionAdapter);
+        setupPopulars();
     }
 
-    public void testData(){
+    private void setupPopulars(){
+        RecyclerView popularRecyclerView = getView().findViewById(R.id.popular_list);
+        mPopularLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        mPopularLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        popularRecyclerView.setLayoutManager(mPopularLayoutManager);
+        popularRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        popularRecyclerView.setAdapter(mPopularAdapter);
+        getPopularItems();
+    }
+
+    public void getPopularItems(){
+        DataBasee db = DataBasee.getDb(getActivity());
+        List<ProductEntity> products_from_db = db.mAppDao().getAllProducts();
+
         Drawable img = getResources().getDrawable(R.drawable.shirt);
-        mPromList.add(new Promotion(img));
-        mPromList.add(new Promotion(img));
-        mPromList.add(new Promotion(img));
-        mPromList.add(new Promotion(img));
-        mPromList.add(new Promotion(img));
-        mPromList.add(new Promotion(img));
-        mPromotionAdapter.notifyDataSetChanged();
+        for(ProductEntity dbItem : products_from_db){
+            Product newProd = new Product(dbItem.getName(), dbItem.getShop(), dbItem.getDescription(),dbItem.getPrice(), dbItem.getDiscount(), img , dbItem.getCategoryInEnum());
+            mPopularList.add(newProd);
+        }
+
+
 
     }
 

@@ -25,13 +25,23 @@
 
     <fragment
         android:id="@+id/navigation_wishlist"
-        android:name="com.example.project.ui.wishlist.WishlistFragment"
+        android:name="com.example.project.ui.wishlist.wishlistFragment"
         android:label="@string/title_wishlist"
         tools:layout="@layout/fragment_wishlist" />
 
     <fragment
         android:id="@+id/navigation_shopping_cart"
-        android:name="com.example.project.ui.shopping_cart.ShoppingCartFragment"
+        android:name="com.example.project.ui.shopping_cart.shoppingFragment"
         android:label="@string/title_shopping_cart"
         tools:layout="@layout/fragment_shopping_cart" />
+    <fragment
+        android:id="@+id/productFragment"
+        android:name="com.example.project.ui.product_view.productFragment"
+        android:label="ProductView"
+        tools:layout="@layout/fragment_item">
+        <argument
+            android:name="itemName"
+            app:argType="string" />
+    </fragment>
+
 </navigation>

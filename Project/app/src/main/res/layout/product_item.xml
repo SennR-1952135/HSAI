@@ -16,8 +16,8 @@
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="181dp"
-        android:layout_height="242dp">
+        android:layout_width="182dp"
+        android:layout_height="223dp">
 
         <ImageView
             android:id="@+id/product_img"
@@ -54,33 +54,31 @@
         </ImageButton>
 
         <TextView
-            android:id="@+id/price_promotion"
+            android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Q 10.99"
-            android:textColor="@color/red"
-            tools:layout_editor_absoluteX="6dp"
-            tools:layout_editor_absoluteY="216dp"
-            tools:ignore="MissingConstraints"/>
-
-        <TextView
-            android:id="@+id/price_real"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Q 10.99"
-            tools:layout_editor_absoluteX="6dp"
-            tools:layout_editor_absoluteY="216dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="4dp"
+            android:text="€ 15.99"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             tools:ignore="MissingConstraints" />
 
         <TextView
-            android:id="@+id/price_next_promotion"
+            android:id="@+id/old_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Q 20.99"
+            android:layout_marginStart="64dp"
+            android:layout_marginBottom="4dp"
+            android:text="€ 16.99"
+            android:textSize="16dp"
+            android:textStyle="bold"
 
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="216dp"
             tools:ignore="MissingConstraints" />
 
         <TextView
@@ -90,27 +88,28 @@
 
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="Item name eeeeeeeeeeeeeeeeeeeeee"
+            android:text="Store"
             android:textSize="16dp"
             android:textStyle="bold"
-            tools:layout_editor_absoluteX="1dp"
-            tools:layout_editor_absoluteY="162dp"
-            tools:ignore="MissingConstraints"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.03"
+            app:layout_constraintTop_toBottomOf="@+id/product_img" />
 
         <TextView
             android:id="@+id/product_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="Item name eeeeeeeeeeeeeeeeeeeeee"
+            android:text="ItemName"
             android:textSize="16dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.03"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="184dp"
-            tools:ignore="MissingConstraints">
+            app:layout_constraintTop_toBottomOf="@+id/product_store">
 
         </TextView>
 
