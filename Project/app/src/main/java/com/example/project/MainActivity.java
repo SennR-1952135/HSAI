@@ -1,40 +1,62 @@
 package com.example.project;
 
+import android.content.Intent;
 import android.os.Bundle;
+
+import com.example.project.ui.shopping_cart.ShoppingCart;
+import com.example.project.ui.shopping_cart.ShoppingCartItem;
+import com.example.project.ui.shopping_cart.ShoppingCartAdapter;
+
+import com.example.project.ui.wishlist.Wishlist;
+import com.example.project.ui.wishlist.WishListItem;
+import com.example.project.ui.wishlist.WishListAdapter;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.room.Room;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.Observable;
+import java.util.Observer;
 
-    AppDatabse db;
-    StoreDao storeDao;
-    ProductDao productDao;
-    StoreProductDao storeProductDao;
+public class MainActivity extends AppCompatActivity implements Observer {
+
+    private AppDatabse db;
+    private StoreDao storeDao;
+    private ProductDao productDao;
+    private StoreProductDao storeProductDao;
+
+    private AppBarConfiguration mAppBarConfig;
+    private BottomNavigationView mBottomNav;
+    private NavController mNavController;
+    private ShoppingCart mShoppingCart;
+    private Wishlist mWishListCart;
+
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_in_store, R.id.navigation_search,
-                R.id.navigation_home, R.id.navigation_wishlist, R.id.navigation_shopping_cart)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
+        setUpBottomNav();
 
         databaseInit(true);
     }
-
+    public void setUpBottomNav(){
+        mBottomNav = findViewById(R.id.nav_view);
+        mAppBarConfig = new AppBarConfiguration.Builder(R.id.navigation_in_store, R.id.navigation_search, R.id.navigation_home, R.id.navigation_wishlist, R.id.navigation_shopping_cart).build();
+        mNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavigationUI.setupActionBarWithNavController(this, mNavController, mAppBarConfig);
+        NavigationUI.setupWithNavController(mBottomNav, mNavController);
+    }
     private void databaseInit(boolean loadData){
         db = Room.databaseBuilder(getApplicationContext(), AppDatabse.class, "App_Database").allowMainThreadQueries().build();
         storeDao = db.storeDao();
@@ -64,9 +86,16 @@ public class MainActivity extends AppCompatActivity {
             productDao.insert(new Product("Random andere Broek1", "een random tshirt van levi's", 50f, storeDao.getIDByName("C&A")));
         }
 
+
         for (StoreProduct sp : storeProductDao.getStoresWithProducts()){
             System.out.println(sp);
         }
     }
+    @Override
 
+    public void update(Observable o, Object arg) {
+        //setCount(this, mShoppingCart.getCount());
+        //updateTotalBasket();
+        //mShoppingCartAdapter.notifyDataSetChanged();
+    }
 }

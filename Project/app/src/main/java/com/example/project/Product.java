@@ -20,6 +20,7 @@ public class Product {
         mPrice = price;
         mWinkelID = winkelID;
     }
+    public float getPrice() {return mPrice;}
 
 
 }
