@@ -2,6 +2,14 @@ package com.example.project;
 
 import android.os.Bundle;
 
+import com.example.project.DataBase.DataBasee;
+import com.example.project.DataBase.ProductEntity;
+import com.example.project.ui.shopping_cart.ShoppingCart;
+
+import com.example.project.ui.shopping_cart.ShoppingCartAdapter;
+import com.example.project.ui.wishlist.WishListAdapter;
+import com.example.project.ui.wishlist.Wishlist;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,37 +19,50 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.room.Room;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.Observable;
+import java.util.Observer;
 
-    AppDatabse db;
-    StoreDao storeDao;
-    ProductDao productDao;
-    StoreProductDao storeProductDao;
+public class MainActivity extends AppCompatActivity implements Observer {
+
+
+    /*
+    private StoreDao storeDao;
+    private ProductDao productDao;
+    private StoreProductDao storeProductDao;
+    */
+    private DataBasee db;
+    private AppBarConfiguration mAppBarConfig;
+    private BottomNavigationView mBottomNav;
+    private NavController mNavController;
+
+
+    private ShoppingCart mShoppingCart;
+    private ShoppingCartAdapter mShoppingCartAdapter;
+
+    private Wishlist mWishList;
+    private WishListAdapter mWishlistAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_in_store, R.id.navigation_search,
-                R.id.navigation_home, R.id.navigation_wishlist, R.id.navigation_shopping_cart)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
+        setUpBottomNav();
 
         databaseInit(true);
     }
-
+    public void setUpBottomNav(){
+        mBottomNav = findViewById(R.id.nav_view);
+        mAppBarConfig = new AppBarConfiguration.Builder(R.id.navigation_in_store, R.id.navigation_search, R.id.navigation_home, R.id.navigation_wishlist, R.id.navigation_shopping_cart).build();
+        mNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavigationUI.setupActionBarWithNavController(this, mNavController, mAppBarConfig);
+        NavigationUI.setupWithNavController(mBottomNav, mNavController);
+    }
     private void databaseInit(boolean loadData){
-        db = Room.databaseBuilder(getApplicationContext(), AppDatabse.class, "App_Database").allowMainThreadQueries().build();
-        storeDao = db.storeDao();
-        productDao = db.productDao();
-        storeProductDao = db.storeProductDao();
+        db = DataBasee.getDb(getApplicationContext());
+        db.clearAllTables();
 
         if(loadData){
+            /*
             storeDao.insert(new Store("C&A", "Diepenbeek"));
             storeDao.insert(new Store("H&M", "Hasselt"));
             productDao.insert(new Product("Levi's T-shirt", "een random tshirt van levi's", 63.2f, storeDao.getIDByName("C&A")));
@@ -62,11 +83,27 @@ public class MainActivity extends AppCompatActivity {
             productDao.insert(new Product("Random Broek2", "een random tshirt van levi's", 50f, storeDao.getIDByName("H&M")));
             productDao.insert(new Product("Random Broek3", "een random tshirt van levi's", 50f, storeDao.getIDByName("C&A")));
             productDao.insert(new Product("Random andere Broek1", "een random tshirt van levi's", 50f, storeDao.getIDByName("C&A")));
+             */
+            ProductEntity p = new ProductEntity();
+            p.setName("Zwarte Shirt");p.setShop("H&M");p.setPrice(10.99f);p.setDiscount(0f);p.setCategory(Category.SHIRT);p.setDescription("Zwarte shirt met streep");p.setDiscount(8.55f);
+            db.mAppDao().createProduct(p);
+            db.mAppDao().createProduct(p);
+            db.mAppDao().createProduct(p);
+            db.mAppDao().createProduct(p);
+            db.mAppDao().createProduct(p);
         }
 
-        for (StoreProduct sp : storeProductDao.getStoresWithProducts()){
-            System.out.println(sp);
-        }
+    }
+    @Override
+
+    public void update(Observable o, Object arg) {
+        //setCount(this, mShoppingCart.getCount());
+        //updateTotalBasket();
+        //mShoppingCartAdapter.notifyDataSetChanged();
     }
 
+    public void addToWishlist(Product product) {
+        mWishList.addItem(product);
+        //WishlistAdapter.notifyDataSetChanged();
+    }
 }
