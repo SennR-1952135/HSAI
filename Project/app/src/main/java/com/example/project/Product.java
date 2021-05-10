@@ -2,16 +2,60 @@ package com.example.project;
 
 import androidx.room.*;
 
+import java.util.ArrayList;
+
 @Entity(tableName = "Product")
 public class Product {
 
-    @PrimaryKey(autoGenerate = true)
-    public long productID;
+    enum Color {
+        ROOD,
+        GROEN,
+        BLAUW,
+        ORANJE,
+        GEEL,
+        WIT,
+        ZWART,
+        PAARS,
+        ROOS
+    }
 
-    public float mPrice;
-    public String mName;
-    public String mBeschrijving;
-    public long mWinkelID;
+    enum Size {
+        XS,
+        S,
+        M,
+        L,
+        XL
+    }
+
+    enum Type {
+        BROEK,
+        TSHIRT,
+        SHORT,
+        KLEEDJE,
+        JAS,
+        ROK,
+        SCHOEN
+    }
+
+    enum Gender {
+        MAN,
+        VROUW,
+        KIND,
+        UNISEX
+    }
+
+    @PrimaryKey(autoGenerate = true)
+    private long productID;
+
+    private float mPrice;
+    private String mName;
+    private String mBeschrijving;
+    private long mWinkelID;
+    private Color mKleur;
+    private boolean mKorting;
+    private ArrayList<Size> mMaaten;
+    private Type mType;
+    private Gender mbedoeldVoor;
 
     public Product(String name, String beschrijving, float price, long winkelID){
         mPrice = price;
@@ -20,6 +64,11 @@ public class Product {
         mPrice = price;
         mWinkelID = winkelID;
     }
+
+    public float getPrice() { return mPrice; }
+    public String getName() { return mName; }
+    public String getBeschrijving() { return mBeschrijving; }
+    public long getWinkelID() { return mWinkelID; }
 
 
 }

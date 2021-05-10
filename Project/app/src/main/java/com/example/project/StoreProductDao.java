@@ -11,4 +11,6 @@ public interface StoreProductDao {
     @Transaction
     @Query("Select * FROM Store")
     public List<StoreProduct> getStoresWithProducts();
+
+    
 }
