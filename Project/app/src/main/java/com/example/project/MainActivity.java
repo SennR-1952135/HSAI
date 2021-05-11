@@ -2,8 +2,9 @@ package com.example.project;
 
 import android.os.Bundle;
 
-import com.example.project.DataBase.DataBasee;
-import com.example.project.DataBase.ProductEntity;
+import com.example.project.OldDB.DataBasee;
+import com.example.project.DataBase.Product;
+import com.example.project.OldDB.ProductEntity;
 import com.example.project.ui.shopping_cart.ShoppingCart;
 
 import com.example.project.ui.shopping_cart.ShoppingCartAdapter;
@@ -17,7 +18,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.room.Room;
 
 import java.util.Observable;
 import java.util.Observer;

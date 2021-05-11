@@ -1,4 +1,4 @@
-package com.example.project.DataBase;
+package com.example.project.OldDB;
 
 
 import android.content.Context;
@@ -6,10 +6,6 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.room.migration.Migration;
-import androidx.sqlite.db.SupportSQLiteDatabase;
-
-import com.example.project.AppDatabase;
 
 @Database(entities = {ProductEntity.class, StoreEntity.class}, version = 4)
 public abstract class DataBasee extends RoomDatabase {

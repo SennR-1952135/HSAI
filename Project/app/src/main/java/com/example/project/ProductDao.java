@@ -2,7 +2,8 @@ package com.example.project;
 
 import androidx.room.*;
 
-import java.util.ArrayList;
+import com.example.project.DataBase.Product;
+
 import java.util.List;
 
 @Dao

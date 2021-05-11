@@ -1,4 +1,4 @@
-package com.example.project.DataBase;
+package com.example.project.OldDB;
 
 import android.util.Log;
 
@@ -7,7 +7,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.example.project.Category;
+import com.example.project.Enums.Category;
 
 @Entity(tableName = "Products")
 public class ProductEntity {

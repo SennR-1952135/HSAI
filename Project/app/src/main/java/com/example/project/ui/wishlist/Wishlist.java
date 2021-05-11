@@ -1,6 +1,6 @@
 package com.example.project.ui.wishlist;
 
-import com.example.project.Product;
+import com.example.project.DataBase.Product;
 
 import java.util.ArrayList;
 import java.util.Observable;

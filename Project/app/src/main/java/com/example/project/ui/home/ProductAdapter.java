@@ -1,9 +1,7 @@
 package com.example.project.ui.home;
 
-import android.content.Context;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.util.Size;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.project.MainActivity;
-import com.example.project.Product;
+import com.example.project.DataBase.Product;
 import com.example.project.R;
 
 import java.text.DecimalFormat;

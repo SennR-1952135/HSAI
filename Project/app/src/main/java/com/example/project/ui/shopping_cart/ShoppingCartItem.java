@@ -1,6 +1,6 @@
 package com.example.project.ui.shopping_cart;
 
-import com.example.project.Product;
+import com.example.project.DataBase.Product;
 
 public class ShoppingCartItem {
     private Product mItem;

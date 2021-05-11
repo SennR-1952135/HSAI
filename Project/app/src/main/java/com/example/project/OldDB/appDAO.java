@@ -1,4 +1,4 @@
-package com.example.project.DataBase;
+package com.example.project.OldDB;
 
 import androidx.room.Dao;
 import androidx.room.Insert;

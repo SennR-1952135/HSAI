@@ -1,13 +1,11 @@
 package com.example.project.ui.home;
 
 
-import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -15,10 +13,9 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.project.DataBase.DataBasee;
-import com.example.project.DataBase.ProductEntity;
-import com.example.project.Product;
-import com.example.project.Promotion;
+import com.example.project.OldDB.DataBasee;
+import com.example.project.OldDB.ProductEntity;
+import com.example.project.DataBase.Product;
 import com.example.project.R;
 
 import java.util.ArrayList;

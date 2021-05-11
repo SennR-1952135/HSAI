@@ -8,8 +8,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.project.Product;
-import com.example.project.Promotion;
+import com.example.project.DataBase.Product;
 import com.example.project.R;
 
 import java.util.ArrayList;

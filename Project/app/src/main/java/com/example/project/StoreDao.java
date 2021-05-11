@@ -2,6 +2,8 @@ package com.example.project;
 
 import androidx.room.*;
 
+import com.example.project.DataBase.Store;
+
 import java.util.List;
 
 @Dao

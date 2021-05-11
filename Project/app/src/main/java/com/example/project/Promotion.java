@@ -2,6 +2,8 @@ package com.example.project;
 
 import android.graphics.drawable.Drawable;
 
+import com.example.project.DataBase.Product;
+
 import java.util.ArrayList;
 
 public class Promotion {

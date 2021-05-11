@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 
-import com.example.project.Product;
+import com.example.project.DataBase.Product;
 
 public class ShoppingCartAdapter extends ArrayAdapter<ShoppingCartItem> {
 

@@ -5,11 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
-import com.example.project.Product;
+import com.example.project.DataBase.Product;
 
 public class WishListAdapter extends ArrayAdapter<WishListItem> {
     private  int resLayout;
