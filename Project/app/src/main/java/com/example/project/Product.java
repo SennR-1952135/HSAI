@@ -1,6 +1,7 @@
 package com.example.project;
 
 import android.graphics.drawable.Drawable;
+import androidx.room.*;
 
 import java.util.ArrayList;
 
@@ -28,14 +29,13 @@ public class Product {
     @PrimaryKey(autoGenerate = true)
     private long productID;
 
-    private float mPrice;
-    private String mName;
+    private float mPrijs;
+    private String mNaam;
     private String mBeschrijving;
     private long mWinkelID;
     private Color mKleur;
     private boolean mKorting;
     private ArrayList<Size> mMaaten;
-    private Type mType;
     private Gender mbedoeldVoor;
     private float mDiscount;
     private Drawable mImage;
@@ -45,7 +45,7 @@ public class Product {
 
     public Product(String name, String store, String discription , float prodPrice, float withoutDiscount, Drawable img, Category cat){
         mName = name;
-        mStore = store;
+        mWinkel = store;
         mDiscription = discription;
         mPrice = prodPrice;
         mdiscount = withoutDiscount;
@@ -61,17 +61,17 @@ public class Product {
         return mName;
     }
 
-    public void setName(String mName) {
-        this.mName = mName;
-    }
+//    public void setName(String mName) {
+//        this.mName = mName;
+//    }
 
     public String getStore() {
         return mStore;
     }
 
-    public void setStore(String mStore) {
-        this.mStore = mStore;
-    }
+//    public void setStore(String mStore) {
+//        this.mStore = mStore;
+//    }
 
     public float getPrice() {
         return mPrice;
