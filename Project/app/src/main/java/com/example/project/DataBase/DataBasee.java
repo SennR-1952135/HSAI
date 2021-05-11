@@ -11,7 +11,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.project.AppDatabase;
 
-@Database(entities = {ProductEntity.class, StoreEntity.class}, version = 4)
+@Database(entities = {ProductEntity.class, StoreEntity.class}, version = 5)
 public abstract class DataBasee extends RoomDatabase {
 
     private static DataBasee INSTANCE;

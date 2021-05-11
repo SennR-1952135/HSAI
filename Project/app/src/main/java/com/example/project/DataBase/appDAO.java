@@ -37,11 +37,8 @@ public interface appDAO {
     @Query("DELETE FROM Products")
     void deleteProducts();
 
-
-
     @Query("SELECT * FROM Stores WHERE name LIKE :p_name LIMIT 1")
     StoreEntity getStore(String p_name);
-
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void createStore(StoreEntity store);

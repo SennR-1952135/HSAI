@@ -134,15 +134,15 @@
 
             <RatingBar
                 android:id="@+id/queue_in_store_checkout"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
-                android:numStars="6"
-                android:padding="8dp"
+                android:numStars="5"
+                android:paddingTop="12dp"
                 android:progressDrawable="@drawable/custom_rating_icons"
-                android:rating="3.0"
-                android:stepSize="1.0" />
+                android:rating="1"
+                android:stepSize="1" />
 
             <ImageButton
                 android:id="@+id/btn_in_store_help_queue_checkout"
@@ -170,14 +170,14 @@
 
             <RatingBar
                 android:id="@+id/queue_in_store_fitting_rooms"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
-                android:numStars="6"
-                android:padding="8dp"
+                android:numStars="5"
+                android:paddingTop="12dp"
                 android:progressDrawable="@drawable/custom_rating_icons"
-                android:rating="3.0"
-                android:stepSize="1.0" />
+                android:rating="4"
+                android:stepSize="1" />
 
             <ImageButton
                 android:id="@+id/btn_in_store_help_queue_fitting_rooms"

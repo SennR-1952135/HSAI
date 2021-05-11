@@ -29,7 +29,6 @@ public class ProductEntity {
     @ColumnInfo(name = "description")
     private String description;
 
-
     @ColumnInfo(name = "discount")
     private float discount;
 

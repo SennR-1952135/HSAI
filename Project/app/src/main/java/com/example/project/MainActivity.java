@@ -1,9 +1,11 @@
 package com.example.project;
 
+import android.location.Geocoder;
 import android.os.Bundle;
 
 import com.example.project.DataBase.DataBasee;
 import com.example.project.DataBase.ProductEntity;
+import com.example.project.DataBase.StoreEntity;
 import com.example.project.ui.shopping_cart.ShoppingCart;
 
 import com.example.project.ui.shopping_cart.ShoppingCartAdapter;
@@ -19,6 +21,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.room.Room;
 
+import java.io.IOException;
+import java.util.Locale;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -62,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
         db.clearAllTables();
 
         if(loadData){
+            //Geocoder geocoder = new Geocoder(this.getApplicationContext());
             /*
             storeDao.insert(new Store("C&A", "Diepenbeek"));
             storeDao.insert(new Store("H&M", "Hasselt"));
@@ -91,6 +96,8 @@ public class MainActivity extends AppCompatActivity implements Observer {
             db.mAppDao().createProduct(p);
             db.mAppDao().createProduct(p);
             db.mAppDao().createProduct(p);
+            db.mAppDao().createStore(new StoreEntity("zara", 50.930462, 5.337660));
+            db.mAppDao().createStore(new StoreEntity("h&m", 50.934846, 5.336248));
         }
 
     }
