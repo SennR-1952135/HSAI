@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.project.DataBase.AppDatabase;
+import com.example.project.DataBase.Dao;
 import com.example.project.OldDB.DataBasee;
 import com.example.project.OldDB.ProductEntity;
 import com.example.project.DataBase.Product;
@@ -23,7 +25,7 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    private ArrayList<Product> mPopularList;
+    private ArrayList<Long> mPopularList;
     private ProductAdapter mPopularAdapter;
     private LinearLayoutManager mPopularLayoutManager;
 
@@ -37,8 +39,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPopularList = new ArrayList<Product>();
-        mPopularAdapter = new ProductAdapter(mPopularList, this);
+        mPopularList = new ArrayList<Long>();
+        mPopularAdapter = new ProductAdapter(mPopularList, this, AppDatabase.getDb(getActivity()).dao());
     }
 
     @Override
@@ -58,14 +60,15 @@ public class HomeFragment extends Fragment {
     }
 
     public void getPopularItems(){
-        DataBasee db = DataBasee.getDb(getActivity());
-        List<ProductEntity> products_from_db = db.mAppDao().getAllProducts();
+        AppDatabase db = AppDatabase.getDb(getActivity());
+        Dao dao = db.dao();
+        mPopularList = new ArrayList<Long>(dao.getAllProductIDs());
 
-        Drawable img = getResources().getDrawable(R.drawable.shirt);
-        for(ProductEntity dbItem : products_from_db){
-            Product newProd = new Product(dbItem.getName(), dbItem.getShop(), dbItem.getDescription(),dbItem.getPrice(), dbItem.getDiscount(), img , dbItem.getCategoryInEnum());
-            mPopularList.add(newProd);
-        }
+//        Drawable img = getResources().getDrawable(R.drawable.shirt);
+//        for(ProductEntity dbItem : products_from_db){
+//            Product newProd = new Product(dbItem.getName(), dbItem.getShop(), dbItem.getDescription(),dbItem.getPrice(), dbItem.getDiscount(), img , dbItem.getCategoryInEnum());
+//            mPopularList.add(newProd);
+//        }
 
 
 

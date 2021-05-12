@@ -29,10 +29,10 @@ public class WishListAdapter extends ArrayAdapter<WishListItem> {
             view = inflater.inflate(resLayout, null);
         }
         WishListItem item = getItem(position);
-        Product prod = item.getItem();
-        if(item!=null){
-            //ImageView imageView = (ImageView) view.findViewById()
-        }
+        long prod = item.getItemID();
+//        if(item!=null){ //Same als bij de shopping cart
+//            //ImageView imageView = (ImageView) view.findViewById()
+//        }
         return view;
     }
 }

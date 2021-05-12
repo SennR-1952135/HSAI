@@ -17,6 +17,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.project.DataBase.Dao;
 import com.example.project.MainActivity;
 import com.example.project.DataBase.Product;
 import com.example.project.R;
@@ -26,12 +27,14 @@ import java.util.ArrayList;
 
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHolder> {
-    private ArrayList<Product> mProductList;
+    private ArrayList<Long> mProductList;
     private Fragment mContext;
+    private Dao mdao;
 
-    public ProductAdapter(ArrayList<Product> list, Fragment context){
-        mProductList = list;
-        mContext = context;
+    public ProductAdapter(ArrayList<Long> list, Fragment context, Dao dao){
+        this.mProductList = list;
+        this.mContext = context;
+        this.mdao = dao;
     }
 
 
@@ -65,18 +68,19 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     }
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int pos){
-        Product prod = mProductList.get(pos);
-        holder.prodImage.setImageDrawable(prod.getImage());
-        holder.itemName.setText(prod.getName());
-        holder.storeName.setText(prod.getStore());
-        if(prod.getDiscountPrice()!=0.0f){
-            holder.price.setText("€ " + new DecimalFormat("###.##").format(prod.getDiscountPrice()));
+        long prodID = mProductList.get(pos);
+        //holder.prodImage.setImageDrawable(prod.getImage());
+        holder.itemName.setText(mdao.getPNameByID(prodID));
+        holder.storeName.setText(mdao.getSNameByID(mdao.getStoreIDByProductID(prodID)));
+        if(mdao.getPDiscountedByID(prodID)){
+            float discountedPrice = mdao.getPPriceByID(prodID) * (1- (mdao.getPDiscountAmountByID(prodID) / 100));
+            holder.price.setText("€ " + new DecimalFormat("###.##").format(discountedPrice));
             holder.price.setTextColor(mContext.getResources().getColor(R.color.red));
-            holder.oldPrice.setText("€ " + new DecimalFormat("###.##").format(prod.getPrice()));
+            holder.oldPrice.setText("€ " + new DecimalFormat("###.##").format(mdao.getPPriceByID(prodID)));
             holder.oldPrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         }
         else{
-            holder.price.setText("€ " + new DecimalFormat("###.##").format(prod.getPrice()));
+            holder.price.setText("€ " + new DecimalFormat("###.##").format(mdao.getPPriceByID(prodID)));
             holder.oldPrice.setText("");
         }
 
@@ -88,7 +92,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 
         holder.cardView.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-            bundle.putString("itemName", prod.getName());
+            bundle.putString("itemName", mdao.getPNameByID(prodID));
             (NavHostFragment.findNavController(mContext)).navigate(R.id.productFragment);
         });
     }

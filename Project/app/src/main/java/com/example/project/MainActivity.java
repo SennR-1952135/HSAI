@@ -2,9 +2,13 @@ package com.example.project;
 
 import android.os.Bundle;
 
-import com.example.project.OldDB.DataBasee;
-import com.example.project.DataBase.Product;
-import com.example.project.OldDB.ProductEntity;
+//import com.example.project.OldDB.DataBasee;
+import com.example.project.DataBase.*;
+//import com.example.project.OldDB.ProductEntity;
+import com.example.project.Enums.Category;
+import com.example.project.Enums.Color;
+import com.example.project.Enums.Gender;
+import com.example.project.Enums.Size;
 import com.example.project.ui.shopping_cart.ShoppingCart;
 
 import com.example.project.ui.shopping_cart.ShoppingCartAdapter;
@@ -24,13 +28,8 @@ import java.util.Observer;
 
 public class MainActivity extends AppCompatActivity implements Observer {
 
-
-    /*
-    private StoreDao storeDao;
-    private ProductDao productDao;
-    private StoreProductDao storeProductDao;
-    */
-    private DataBasee db;
+    private AppDatabase db;
+    private Dao dao;
     private AppBarConfiguration mAppBarConfig;
     private BottomNavigationView mBottomNav;
     private NavController mNavController;
@@ -47,8 +46,9 @@ public class MainActivity extends AppCompatActivity implements Observer {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setUpBottomNav();
-
         databaseInit(true);
+        mWishList = new Wishlist(dao);
+        mShoppingCart = new ShoppingCart(dao);
     }
     public void setUpBottomNav(){
         mBottomNav = findViewById(R.id.nav_view);
@@ -57,53 +57,42 @@ public class MainActivity extends AppCompatActivity implements Observer {
         NavigationUI.setupActionBarWithNavController(this, mNavController, mAppBarConfig);
         NavigationUI.setupWithNavController(mBottomNav, mNavController);
     }
+
     private void databaseInit(boolean loadData){
-        db = DataBasee.getDb(getApplicationContext());
+        db = AppDatabase.getDb(getApplicationContext());
         db.clearAllTables();
+        dao = db.dao();
 
         if(loadData){
-            /*
-            storeDao.insert(new Store("C&A", "Diepenbeek"));
-            storeDao.insert(new Store("H&M", "Hasselt"));
-            productDao.insert(new Product("Levi's T-shirt", "een random tshirt van levi's", 63.2f, storeDao.getIDByName("C&A")));
-            productDao.insert(new Product("Levi's T-shirt2", "een random tshirt van levi's", 60f, storeDao.getIDByName("H&M")));
-            productDao.insert(new Product("Levi's T-shirt3", "een random tshirt van levi's", 63.2f, storeDao.getIDByName("C&A")));
-            productDao.insert(new Product("Levi's T-shirt4", "een random tshirt van levi's", 50f, storeDao.getIDByName("H&M")));
-            productDao.insert(new Product("Random andere T-shirt", "een random tshirt van levi's", 50f, storeDao.getIDByName("H&M")));
-            productDao.insert(new Product("Random andere T-shirt", "een random tshirt van levi's", 50f, storeDao.getIDByName("C&A")));
-            productDao.insert(new Product("Random Broek", "een random tshirt van levi's", 50f, storeDao.getIDByName("H&M")));
-            productDao.insert(new Product("Random Broek", "een random tshirt van levi's", 50f, storeDao.getIDByName("C&A")));
-            productDao.insert(new Product("Random andere Broek", "een random tshirt van levi's", 50f, storeDao.getIDByName("C&A")));
-            productDao.insert(new Product("Levi's T-shirt11", "een random tshirt van levi's", 63.2f, storeDao.getIDByName("C&A")));
-            productDao.insert(new Product("Levi's T-shirt22", "een random tshirt van levi's", 60f, storeDao.getIDByName("H&M")));
-            productDao.insert(new Product("Levi's T-shirt33", "een random tshirt van levi's", 63.2f, storeDao.getIDByName("C&A")));
-            productDao.insert(new Product("Levi's T-shirt44", "een random tshirt van levi's", 50f, storeDao.getIDByName("H&M")));
-            productDao.insert(new Product("Random andere T-shirt1", "een random tshirt van levi's", 50f, storeDao.getIDByName("H&M")));
-            productDao.insert(new Product("Random andere T-shirt22", "een random tshirt van levi's", 50f, storeDao.getIDByName("C&A")));
-            productDao.insert(new Product("Random Broek2", "een random tshirt van levi's", 50f, storeDao.getIDByName("H&M")));
-            productDao.insert(new Product("Random Broek3", "een random tshirt van levi's", 50f, storeDao.getIDByName("C&A")));
-            productDao.insert(new Product("Random andere Broek1", "een random tshirt van levi's", 50f, storeDao.getIDByName("C&A")));
-             */
-            ProductEntity p = new ProductEntity();
-            p.setName("Zwarte Shirt");p.setShop("H&M");p.setPrice(10.99f);p.setDiscount(0f);p.setCategory(Category.SHIRT);p.setDescription("Zwarte shirt met streep");p.setDiscount(8.55f);
-            db.mAppDao().createProduct(p);
-            db.mAppDao().createProduct(p);
-            db.mAppDao().createProduct(p);
-            db.mAppDao().createProduct(p);
-            db.mAppDao().createProduct(p);
+            Store s1 = new Store("zara", 50.930462, 5.337660);
+            Store s2 = new Store("h&m", 50.934846, 5.336248);
+            dao.insertStores(s1, s2);
+            Product p0 = new Product("Zwarte Shirt", "Zwarte shirt met streep", 10.99f, 0f, Category.TSHIRT, s1.ID, Color.BLACK, Gender.UNISEX, Size.M );
+            Product p1 = new Product("Zwarte Shirt", "Zwarte shirt met streep", 10.99f, 0f, Category.TSHIRT, s1.ID, Color.BLACK, Gender.UNISEX, Size.S );
+            Product p2 = new Product("Zwarte Shirt", "Zwarte shirt met streep", 10.99f, 0f, Category.TSHIRT, s1.ID, Color.BLACK, Gender.UNISEX, Size.L );
+            Product p3 = new Product("Zwarte Shirt", "Zwarte shirt met streep", 10.99f, 0f, Category.TSHIRT, s1.ID, Color.BLACK, Gender.UNISEX, Size.XL );
+            Product p4 = new Product("Zwarte Shirt", "Zwarte shirt met streep", 10.99f, 0f, Category.TSHIRT, s1.ID, Color.BLACK, Gender.UNISEX, Size.XS );
+            dao.insertProducts(p0, p1, p2, p3, p4, p2, p3, p4, p1, p0, p2, p0);
+//            ProductEntity p = new ProductEntity();
+//            p.setName("Zwarte Shirt");p.setShop("H&M");p.setPrice(10.99f);p.setDiscount(0f);p.setCategory(Category.SHIRT);p.setDescription("Zwarte shirt met streep");p.setDiscount(8.55f);
+//            db.mAppDao().createProduct(p);
+//            db.mAppDao().createProduct(p);
+//            db.mAppDao().createProduct(p);
+//            db.mAppDao().createProduct(p);
+//            db.mAppDao().createProduct(p);
         }
 
     }
-    @Override
 
+    @Override
     public void update(Observable o, Object arg) {
         //setCount(this, mShoppingCart.getCount());
         //updateTotalBasket();
         //mShoppingCartAdapter.notifyDataSetChanged();
     }
 
-    public void addToWishlist(Product product) {
-        mWishList.addItem(product);
+    public void addToWishlist(long productID) {
+        mWishList.addItem(productID);
         //WishlistAdapter.notifyDataSetChanged();
     }
 }

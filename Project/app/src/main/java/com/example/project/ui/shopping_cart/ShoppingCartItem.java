@@ -3,19 +3,19 @@ package com.example.project.ui.shopping_cart;
 import com.example.project.DataBase.Product;
 
 public class ShoppingCartItem {
-    private Product mItem;
+    private long mItemID;
     private int mQuantity;
     private boolean mChecked;
 
-    public ShoppingCartItem(Product item){
-        mItem = item;
+    public ShoppingCartItem(long itemID){
+        mItemID = itemID;
         mChecked = false;
         mQuantity = 1;
     }
     // Getters:
     public int getQuantity(){return mQuantity;}
     public boolean isChecked(){return mChecked;}
-    public Product getItem(){return mItem;}
+    public long getItemID(){return mItemID;}
 
     // Setters:
     public void setQuantity(int quantity){mQuantity = quantity;}

@@ -30,10 +30,10 @@ public class ShoppingCartAdapter extends ArrayAdapter<ShoppingCartItem> {
             view = inflater.inflate(resLayout, null);
         }
         ShoppingCartItem cartItem = getItem(index);
-        Product item = cartItem.getItem();
-        if(item!= null){
-            //nothing
-        }
+        long itemID = cartItem.getItemID();
+//        if(itemID != null ){ //voor een reden kunt ge een long nie vergelijken met null, geen idee wat je hier wilt doen ma ask me als het niet lukt. KOBE
+//            //nothing
+//        }
         return view;
     }
 

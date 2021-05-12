@@ -7,7 +7,7 @@ import com.example.project.Enums.Category;
 import com.example.project.Enums.Color;
 import com.example.project.Enums.Size;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @androidx.room.Dao
 public interface Dao {
@@ -22,6 +22,9 @@ public interface Dao {
 
     @Delete
     void deleteProduct(Product product);
+
+    @Query("SELECT ProductID FROM Product")
+    List<Long> getAllProductIDs();
 
     @Query("Select ProductID FROM Product WHERE Name like :name LIMIT 1")
     long getPIDByName(String name);
@@ -55,5 +58,25 @@ public interface Dao {
 
     @Query("SELECT Size FROM Product WHERE ProductID == :ID")
     Size getPSizeByID(long ID);
+
+
+    //STORE
+    @Insert
+    void insertStores(Store... stores);
+
+    @Update
+    void updateStore(Store store);
+
+    @Delete
+    void deleteStore(Store store);
+
+    @Query("SELECT Name FROM Store WHERE StoreID == :ID")
+    String getSNameByID(long ID);
+
+    @Query("SELECT Lat FROM Store WHERE StoreID == :ID")
+    double getSLatByID(long ID);
+
+    @Query("SELECT Long FROM Store WHERE StoreID == :ID")
+    double getSLongByID(long ID);
 
 }

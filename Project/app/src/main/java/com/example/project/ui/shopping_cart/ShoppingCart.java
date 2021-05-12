@@ -1,5 +1,6 @@
 package com.example.project.ui.shopping_cart;
 
+import com.example.project.DataBase.Dao;
 import com.example.project.DataBase.Product;
 
 import java.util.ArrayList;
@@ -8,9 +9,11 @@ import java.util.Observable;
 public class ShoppingCart extends Observable {
 
     private ArrayList<ShoppingCartItem> mItems;
+    private Dao dao;
 
-    public ShoppingCart(){
-        mItems = new ArrayList<ShoppingCartItem>();
+    public ShoppingCart(Dao dao){
+        this.mItems = new ArrayList<ShoppingCartItem>();
+        this.dao = dao;
     }
 
     // Getters:
@@ -20,7 +23,7 @@ public class ShoppingCart extends Observable {
     public float getTotal(){
         float total = 0;
         for(ShoppingCartItem i: mItems){
-            total+= i.getItem().getPrice() * i.getQuantity();
+            total+= dao.getPPriceByID(i.getItemID()) * i.getQuantity();
         }
         return total;
     }
@@ -42,10 +45,10 @@ public class ShoppingCart extends Observable {
         setChanged();
         notifyObservers();
     }
-    public void addItem(Product item){
+    public void addItem(long item){
         // First check if item is already in wishlist.
         for(ShoppingCartItem i: mItems){
-            if(i.getItem().getName().equals(item.getName())){
+            if(dao.getPNameByID(i.getItemID()).equals(dao.getPNameByID(item))){
                 i.addOneQuantity();
                 setChanged();
                 notifyObservers();

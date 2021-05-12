@@ -12,4 +12,6 @@
     <string name="title_label_in_store_queue_checkout">Kassa:</string>
     <string name="title_label_in_store_queue_fitting_rooms">Pashokjes:</string>
     <string name="title_btn_in_store_search_new_store">Zoek een nieuwe winkel</string>
+    <string name="popular">Popular</string>
+    <string name="promotion">Promotion</string>
 </resources>
