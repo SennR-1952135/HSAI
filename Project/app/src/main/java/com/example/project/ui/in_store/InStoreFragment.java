@@ -2,10 +2,7 @@ package com.example.project.ui.in_store;
 
 
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,17 +24,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.project.DataBase.DataBasee;
-import com.example.project.DataBase.ProductEntity;
 import com.example.project.DataBase.StoreEntity;
-import com.example.project.Product;
 import com.example.project.R;
-import com.example.project.Store;
-import com.example.project.ui.in_store.infoDialog;
-import com.example.project.ui.in_store.inStoreMap;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -45,16 +36,14 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-
-import java.io.IOException;
 import java.util.List;
+import com.example.project.ui.in_store.scanFragment;
 
 public class InStoreFragment extends Fragment {
 
@@ -62,10 +51,12 @@ public class InStoreFragment extends Fragment {
     private String global_in_store_name;
 
     private InStoreViewModel inStoreViewModel;
+    private scanFragment scanFragment;
     private ImageButton btnQueueCheckout;
     private ImageButton btnQueueFitting;
     private TextView storeNameView;
     private Button btnSearchNewStore;
+    private Button btnScanner;
 
     private View rootView;
     private View rootMapView;
@@ -88,18 +79,12 @@ public class InStoreFragment extends Fragment {
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean locationPermissionGranted;
 
-    // The geographical location where the device is currently located. That is, the last-known
-    // location retrieved by the Fused Location Provider.
+    // The geographical location where the device is currently located. That is, the last-known location retrieved by the Fused Location Provider.
     private Location lastKnownLocation;
 
     // Keys for storing activity state.
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -111,6 +96,19 @@ public class InStoreFragment extends Fragment {
         global_in_store_name = getGlobalStoreName();
         storeNameView = rootView.findViewById(R.id.text_in_store_store_name);
         storeNameView.setText(global_in_store_name);
+
+        scanFragment = new scanFragment();
+        btnScanner = rootView.findViewById(R.id.btn_in_store_scanner);
+        btnScanner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction t = getFragmentManager().beginTransaction();
+                if (Build.VERSION.SDK_INT>= 26) {
+                    t.setReorderingAllowed(false);
+                }
+                t.replace(((ViewGroup)getView().getParent()).getId(), scanFragment, "scanFragment").commit();
+            }
+        });
 
         btnSearchNewStore = rootView.findViewById(R.id.btn_in_store_find_new_store);
         btnSearchNewStore.setOnClickListener(new View.OnClickListener() {
