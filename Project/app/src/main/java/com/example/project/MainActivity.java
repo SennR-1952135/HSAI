@@ -4,11 +4,7 @@ import android.os.Bundle;
 
 import com.example.project.DataBase.DataBasee;
 import com.example.project.DataBase.ProductEntity;
-import com.example.project.ui.shopping_cart.ShoppingCart;
 
-import com.example.project.ui.shopping_cart.ShoppingCartAdapter;
-import com.example.project.ui.wishlist.WishListAdapter;
-import com.example.project.ui.wishlist.Wishlist;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -17,30 +13,15 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.room.Room;
-
-import java.util.Observable;
-import java.util.Observer;
-
-public class MainActivity extends AppCompatActivity implements Observer {
 
 
-    /*
-    private StoreDao storeDao;
-    private ProductDao productDao;
-    private StoreProductDao storeProductDao;
-    */
+public class MainActivity extends AppCompatActivity {
+
     private DataBasee db;
     private AppBarConfiguration mAppBarConfig;
     private BottomNavigationView mBottomNav;
     private NavController mNavController;
 
-
-    private ShoppingCart mShoppingCart;
-    private ShoppingCartAdapter mShoppingCartAdapter;
-
-    private Wishlist mWishList;
-    private WishListAdapter mWishlistAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +29,8 @@ public class MainActivity extends AppCompatActivity implements Observer {
         setContentView(R.layout.activity_main);
         setUpBottomNav();
 
-        databaseInit(true);
+        db = DataBasee.getDb(getApplicationContext());
+        //insertData();
     }
     public void setUpBottomNav(){
         mBottomNav = findViewById(R.id.nav_view);
@@ -57,53 +39,26 @@ public class MainActivity extends AppCompatActivity implements Observer {
         NavigationUI.setupActionBarWithNavController(this, mNavController, mAppBarConfig);
         NavigationUI.setupWithNavController(mBottomNav, mNavController);
     }
-    private void databaseInit(boolean loadData){
-        db = DataBasee.getDb(getApplicationContext());
+    private void insertData(){
         db.clearAllTables();
+        db.mAppDao().deleteProducts();
+        db.mAppDao().removeAllInCart();
 
-        if(loadData){
-            /*
-            storeDao.insert(new Store("C&A", "Diepenbeek"));
-            storeDao.insert(new Store("H&M", "Hasselt"));
-            productDao.insert(new Product("Levi's T-shirt", "een random tshirt van levi's", 63.2f, storeDao.getIDByName("C&A")));
-            productDao.insert(new Product("Levi's T-shirt2", "een random tshirt van levi's", 60f, storeDao.getIDByName("H&M")));
-            productDao.insert(new Product("Levi's T-shirt3", "een random tshirt van levi's", 63.2f, storeDao.getIDByName("C&A")));
-            productDao.insert(new Product("Levi's T-shirt4", "een random tshirt van levi's", 50f, storeDao.getIDByName("H&M")));
-            productDao.insert(new Product("Random andere T-shirt", "een random tshirt van levi's", 50f, storeDao.getIDByName("H&M")));
-            productDao.insert(new Product("Random andere T-shirt", "een random tshirt van levi's", 50f, storeDao.getIDByName("C&A")));
-            productDao.insert(new Product("Random Broek", "een random tshirt van levi's", 50f, storeDao.getIDByName("H&M")));
-            productDao.insert(new Product("Random Broek", "een random tshirt van levi's", 50f, storeDao.getIDByName("C&A")));
-            productDao.insert(new Product("Random andere Broek", "een random tshirt van levi's", 50f, storeDao.getIDByName("C&A")));
-            productDao.insert(new Product("Levi's T-shirt11", "een random tshirt van levi's", 63.2f, storeDao.getIDByName("C&A")));
-            productDao.insert(new Product("Levi's T-shirt22", "een random tshirt van levi's", 60f, storeDao.getIDByName("H&M")));
-            productDao.insert(new Product("Levi's T-shirt33", "een random tshirt van levi's", 63.2f, storeDao.getIDByName("C&A")));
-            productDao.insert(new Product("Levi's T-shirt44", "een random tshirt van levi's", 50f, storeDao.getIDByName("H&M")));
-            productDao.insert(new Product("Random andere T-shirt1", "een random tshirt van levi's", 50f, storeDao.getIDByName("H&M")));
-            productDao.insert(new Product("Random andere T-shirt22", "een random tshirt van levi's", 50f, storeDao.getIDByName("C&A")));
-            productDao.insert(new Product("Random Broek2", "een random tshirt van levi's", 50f, storeDao.getIDByName("H&M")));
-            productDao.insert(new Product("Random Broek3", "een random tshirt van levi's", 50f, storeDao.getIDByName("C&A")));
-            productDao.insert(new Product("Random andere Broek1", "een random tshirt van levi's", 50f, storeDao.getIDByName("C&A")));
-             */
-            ProductEntity p = new ProductEntity();
-            p.setName("Zwarte Shirt");p.setShop("H&M");p.setPrice(10.99f);p.setDiscount(0f);p.setCategory(Category.SHIRT);p.setDescription("Zwarte shirt met streep");p.setDiscount(8.55f);
-            db.mAppDao().createProduct(p);
-            db.mAppDao().createProduct(p);
-            db.mAppDao().createProduct(p);
-            db.mAppDao().createProduct(p);
-            db.mAppDao().createProduct(p);
-        }
+        db.mAppDao().createProduct(new ProductEntity(1, "Black Shirt", "H&M", "Black shirt with logo.",10.99f, 0f,Category.SHIRT));
+        db.mAppDao().createProduct(new ProductEntity(2, "Blue Pants", "H&M", "Some blue pants with stripes.",20.99f, 15.55f,Category.PANTS));
+        db.mAppDao().createProduct(new ProductEntity(3, "Shoes", "ZARA", "Zwarte shirt met streep",10.99f, 8.55f,Category.SHOES));
+        db.mAppDao().createProduct(new ProductEntity(5, "Zwarte Shirt", "BERSHKA", "Zwarte shirt met streep",10.99f, 8.55f,Category.SHIRT));
 
     }
-    @Override
 
-    public void update(Observable o, Object arg) {
-        //setCount(this, mShoppingCart.getCount());
-        //updateTotalBasket();
-        //mShoppingCartAdapter.notifyDataSetChanged();
-    }
 
-    public void addToWishlist(Product product) {
-        mWishList.addItem(product);
-        //WishlistAdapter.notifyDataSetChanged();
+
+
+    public void navigateTo(int actionId, Bundle bundle){
+        //if (mDrawerLayout.isDrawerOpen(GravityCompat.END)){ // If you tap on an item but the shopping cart is open, close it
+            //mDrawerLayout.closeDrawer(GravityCompat.END);
+        //}
+        mNavController.navigate(actionId, bundle);
+
     }
 }

@@ -14,8 +14,7 @@ public class ProductEntity {
 
 
     @PrimaryKey(autoGenerate = true)
-    @NonNull
-    private int ID;
+    private int id;
 
     @ColumnInfo(name = "name")
     private String name;
@@ -36,15 +35,19 @@ public class ProductEntity {
     @ColumnInfo(name = "category")
     private String category;
 
+    public ProductEntity(){}
+    public ProductEntity(int id, String name, String shop , String description, float price , float discount, Category category ){
+        this.id = id; this.name = name; this.shop = shop; this.description = description; this.price = price; this.discount = discount; this.category = category.toString();
+    }
     //GETTERS AND SETTERS
 
     @NonNull
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public void setID(@NonNull int ID) {
-        this.ID = ID;
+    public void setId(@NonNull int id) {
+        this.id = id;
     }
 
     public String getName() {

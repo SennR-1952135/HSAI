@@ -2,6 +2,10 @@ package com.example.project;
 
 import android.graphics.drawable.Drawable;
 
+import com.example.project.ui.product_view.ClothingSize;
+
+import java.util.ArrayList;
+
 public class Product {
 
     private String mName;
@@ -11,11 +15,35 @@ public class Product {
     private String mDiscription;
     private Drawable mImage;
 
+    public ArrayList<ClothingSize> getAvailableSizes() {
+        return availableSizes;
+    }
+
+    public void setAvailableSizes(ArrayList<ClothingSize> availableSizes) {
+        this.availableSizes = availableSizes;
+    }
+    public void setSizes(ArrayList<ClothingSize> sizes){
+        this.sizes = sizes;
+    }
+
+    private ArrayList<ClothingSize> availableSizes;
+
+    public ArrayList<ClothingSize> getSizes() {
+        return sizes;
+    }
+
+    private ArrayList<ClothingSize> sizes;
+
+
+    private ArrayList<Drawable> mImages;
+    private int mProductId;
+
 
     private Category mCat;
 
 
-    public Product(String name, String store, String discription , float prodPrice, float withoutDiscount, Drawable img, Category cat){
+    public Product(int id,String name, String store, String discription , float prodPrice, float withoutDiscount, Drawable img, Category cat){
+        mProductId = id;
         mName = name;
         mStore = store;
         mDiscription = discription;
@@ -25,10 +53,35 @@ public class Product {
         mCat = cat;
     }
 
+    public Product(int id, String name, String store,float prodPrice, float withoutDiscount, Drawable img){
+        mProductId = id;
+        mName = name;
+        mStore = store;
+        mPrice = prodPrice;
+        mWithoutDiscountPrice = withoutDiscount;
+        mImage = img;
+    }
+
+
+    public boolean isSizeAvailable(ClothingSize a){
+        for(ClothingSize q: availableSizes){
+            if(q.equals(a)){
+                return true;
+            }
+        }
+        return false;
+    }
     /*
     Getters AND SETTERS
      */
 
+    public ArrayList<Drawable> getImages() { return mImages; }
+
+    public void setImages(ArrayList<Drawable> mImages) { this.mImages = mImages; }
+
+    public int getProductId() { return mProductId; }
+
+    public void setProductId(int mID) { this.mProductId = mID; }
     public String getName() {
         return mName;
     }
