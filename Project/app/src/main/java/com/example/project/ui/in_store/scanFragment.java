@@ -146,7 +146,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.project.DataBase.DataBasee;
+import com.example.project.DataBase.ProductEntity;
+import com.example.project.DataBase.ProductInWishlist;
+import com.example.project.Product;
 import com.example.project.R;
 import com.google.android.gms.vision.barcode.Barcode;
 
@@ -169,7 +174,11 @@ public class scanFragment extends Fragment {
             @Override
             public void onScanned(Barcode barcode) {
                 // play beep sound
-                barcodeReader.playBeep();
+                DataBasee db = DataBasee.getDb(getActivity());
+                List<ProductEntity> p = db.mAppDao().getAllProducts();
+                Bundle bundle = new Bundle();
+                bundle.putString("itemId", Integer.toString(p.get(0).getId()));
+                NavHostFragment.findNavController(getTargetFragment()).navigate(R.id.productFragment, bundle);
             }
 
             @Override

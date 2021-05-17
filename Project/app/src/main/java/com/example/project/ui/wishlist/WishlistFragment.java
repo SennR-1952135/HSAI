@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -37,6 +38,11 @@ public class WishlistFragment extends Fragment implements Observer {
     boolean up = false;
     public WishlistFragment(){
 
+    }
+
+    private String getGlobalStoreName() {
+        TextView t = getActivity().findViewById(R.id.in_store_name_global);
+        return t.getText().toString();
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

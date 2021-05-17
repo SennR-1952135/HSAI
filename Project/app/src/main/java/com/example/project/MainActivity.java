@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setUpBottomNav();
 
         db = DataBasee.getDb(getApplicationContext());
-        //insertData();
+        insertData();
     }
     public void setUpBottomNav(){
         mBottomNav = findViewById(R.id.nav_view);
@@ -55,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
         db.mAppDao().createProduct(new ProductEntity(2, "Blue Pants", "H&M", "Some blue pants with stripes.",20.99f, 15.55f,Category.PANTS));
         db.mAppDao().createProduct(new ProductEntity(3, "Shoes", "ZARA", "Zwarte shirt met streep",10.99f, 8.55f,Category.SHOES));
         db.mAppDao().createProduct(new ProductEntity(5, "Zwarte Shirt", "BERSHKA", "Zwarte shirt met streep",10.99f, 8.55f,Category.SHIRT));
-            db.mAppDao().createStore(new StoreEntity("zara", 50.930462, 5.337660));
-            db.mAppDao().createStore(new StoreEntity("h&m", 50.934846, 5.336248));
-
+        db.mAppDao().createStore(new StoreEntity("ZARA", 50.930462, 5.337660));
+        db.mAppDao().createStore(new StoreEntity("H&M", 50.934846, 5.336248));
+        db.mAppDao().createStore(new StoreEntity("BERSHKA", 50.92980317303619, 5.33745872717891));
     }
 
 
@@ -68,6 +68,5 @@ public class MainActivity extends AppCompatActivity {
             //mDrawerLayout.closeDrawer(GravityCompat.END);
         //}
         mNavController.navigate(actionId, bundle);
-
     }
 }
