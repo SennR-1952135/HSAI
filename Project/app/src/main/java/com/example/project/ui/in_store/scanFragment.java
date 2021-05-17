@@ -1,11 +1,11 @@
 package com.example.project.ui.in_store;
 
-/*
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -21,6 +21,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.project.DataBase.DataBasee;
+import com.example.project.DataBase.ProductEntity;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -28,6 +30,7 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.example.project.R;
 
 import java.io.IOException;
+import java.util.List;
 
 public class scanFragment extends Fragment {
 
@@ -40,6 +43,8 @@ public class scanFragment extends Fragment {
     private TextView barcodeText;
     private String barcodeData;
     private View rootView;
+    private scanFragment frag;
+    private List<ProductEntity> products;
 
     @Nullable
     @Override
@@ -48,6 +53,8 @@ public class scanFragment extends Fragment {
         toneGen1 = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
         surfaceView = rootView.findViewById(R.id.surface_view);
         barcodeText = rootView.findViewById(R.id.barcode_text);
+        DataBasee db = DataBasee.getDb(getActivity());
+        products = db.mAppDao().getAllProducts();
         initialiseDetectorsAndSources();
         return rootView;
     }
@@ -117,12 +124,13 @@ public class scanFragment extends Fragment {
                                 barcodeText.setText(barcodeData);
                                 toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
                             } else {
-
                                 barcodeData = barcodes.valueAt(0).displayValue;
                                 barcodeText.setText(barcodeData);
                                 toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
-
                             }
+                            Bundle bundle = new Bundle();
+                            bundle.putString("itemId", Integer.toString(products.get(1).getId()));
+                            NavHostFragment.findNavController(getParentFragment()).navigate(R.id.productFragment, bundle);
                         }
                     });
 
@@ -131,8 +139,8 @@ public class scanFragment extends Fragment {
         });
     }
 }
-*/
 
+/*
 import android.os.Build;
 import android.os.Bundle;
 import android.util.SparseArray;
@@ -164,21 +172,23 @@ public class scanFragment extends Fragment {
 
     private BarcodeReader barcodeReader;
     private View rootView;
+    private scanFragment frag;
+    private List<ProductEntity> products;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_scanner, container, false);
         barcodeReader = (BarcodeReader) getChildFragmentManager().findFragmentById(R.id.barcode_fragment);
+        frag = this;
+        DataBasee db = DataBasee.getDb(getActivity());
+        products = db.mAppDao().getAllProducts();
         barcodeReader.setListener(new BarcodeReader.BarcodeReaderListener() {
             @Override
             public void onScanned(Barcode barcode) {
-                // play beep sound
-                DataBasee db = DataBasee.getDb(getActivity());
-                List<ProductEntity> p = db.mAppDao().getAllProducts();
                 Bundle bundle = new Bundle();
-                bundle.putString("itemId", Integer.toString(p.get(0).getId()));
-                NavHostFragment.findNavController(getTargetFragment()).navigate(R.id.productFragment, bundle);
+                bundle.putString("itemId", Integer.toString(products.get(0).getId()));
+                NavHostFragment.findNavController(getParentFragment()).navigate(R.id.productFragment, bundle);
             }
 
             @Override
@@ -203,4 +213,4 @@ public class scanFragment extends Fragment {
         });
         return rootView;
     }
-}
+}*/
