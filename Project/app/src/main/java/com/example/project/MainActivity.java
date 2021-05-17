@@ -1,9 +1,12 @@
 package com.example.project;
 
+import android.location.Geocoder;
 import android.os.Bundle;
 
 import com.example.project.DataBase.DataBasee;
 import com.example.project.DataBase.ProductEntity;
+import com.example.project.DataBase.StoreEntity;
+import com.example.project.ui.shopping_cart.ShoppingCart;
 
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -14,6 +17,10 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.io.IOException;
+import java.util.Locale;
+import java.util.Observable;
+import java.util.Observer;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         db.mAppDao().createProduct(new ProductEntity(2, "Blue Pants", "H&M", "Some blue pants with stripes.",20.99f, 15.55f,Category.PANTS));
         db.mAppDao().createProduct(new ProductEntity(3, "Shoes", "ZARA", "Zwarte shirt met streep",10.99f, 8.55f,Category.SHOES));
         db.mAppDao().createProduct(new ProductEntity(5, "Zwarte Shirt", "BERSHKA", "Zwarte shirt met streep",10.99f, 8.55f,Category.SHIRT));
+            db.mAppDao().createStore(new StoreEntity("zara", 50.930462, 5.337660));
+            db.mAppDao().createStore(new StoreEntity("h&m", 50.934846, 5.336248));
 
     }
 
