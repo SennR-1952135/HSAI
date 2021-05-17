@@ -1,5 +1,7 @@
 package com.example.project.DataBase;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import androidx.room.*;
 
@@ -40,8 +42,8 @@ public class Product {
     @ColumnInfo(name = "DiscountAmount")
     public float mDiscountAmount;
 
-    @Embedded
-    public Drawable mImage;
+    @ColumnInfo(name = "Image")
+    public int mImage;
 
     @ColumnInfo(name = "Category")
     public Category mCategory;
@@ -50,7 +52,7 @@ public class Product {
     public Size mSize;
 
 
-    public Product(String name, String discription , float price, float discountAmount, /*Drawable image,*/ Category category, long storeID, Color color, Gender gender, Size size){
+    public Product(String name, String discription , float price, float discountAmount, int image, Category category, long storeID, Color color, Gender gender, Size size){
         this.mName = name;
         this.mStoreID = storeID;
         this.mPrice = price;
@@ -59,7 +61,7 @@ public class Product {
         this.mDiscounted = (discountAmount == 0);
         this.mDiscountAmount = discountAmount;
         this.mGender = gender;
-//        this.mImage = image;
+        this.mImage = image;
         this.mCategory = category;
         this.mSize = size;
     }

@@ -47,8 +47,8 @@ public interface Dao {
     @Query("SELECT DiscountAmount FROM Product WHERE ProductID == :ID")
     float getPDiscountAmountByID(long ID);
 
-//    @Query("SELECT mImage FROM product WHERE ProductID == :ID")
-//    Drawable getPPImageByID(long ID);
+    @Query("SELECT Image FROM product WHERE ProductID == :ID")
+    int getPImageResourceByID(long ID);
 
     @Query("SELECT Category FROM Product WHERE ProductID == :ID")
     Category getPCategoryByID(long ID);

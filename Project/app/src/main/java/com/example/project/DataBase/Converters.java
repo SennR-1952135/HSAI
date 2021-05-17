@@ -1,5 +1,9 @@
 package com.example.project.DataBase;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+
 import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 
@@ -7,8 +11,19 @@ import com.example.project.Enums.Category;
 import com.example.project.Enums.Color;
 import com.example.project.Enums.Gender;
 import com.example.project.Enums.Size;
+import com.example.project.R;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URI;
+import java.util.Arrays;
 
 public class Converters {
+
+    private static int imageCount = 0;
 
     //Color
     @TypeConverter
@@ -82,4 +97,22 @@ public class Converters {
     public static String sizeToString(Size size){
         return size.toString().toLowerCase();
     }
+
+
+//    @TypeConverter
+//    public static Drawable URIToDrawable(URI uri) {
+//        File file = new File(uri);
+//        try {
+//            FileInputStream inputStream = new FileInputStream(file);
+//
+//            return (Drawable) new BitmapDrawable(bitmap)
+//        } catch (IOException ioe){
+//            ioe.printStackTrace();
+//        }
+//
+//    }
+//    @TypeConverter
+//    public static int drawableToInt(Drawable img) {
+//
+//    }
 }

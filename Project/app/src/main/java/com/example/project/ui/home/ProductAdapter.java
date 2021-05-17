@@ -69,7 +69,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int pos){
         long prodID = mProductList.get(pos);
-        //holder.prodImage.setImageDrawable(prod.getImage());
+        holder.prodImage.setImageResource(mdao.getPImageResourceByID(prodID));
         holder.itemName.setText(mdao.getPNameByID(prodID));
         holder.storeName.setText(mdao.getSNameByID(mdao.getStoreIDByProductID(prodID)));
         if(mdao.getPDiscountedByID(prodID)){

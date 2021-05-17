@@ -60,8 +60,7 @@ public class HomeFragment extends Fragment {
     }
 
     public void getPopularItems(){
-        AppDatabase db = AppDatabase.getDb(getActivity());
-        Dao dao = db.dao();
+        Dao dao = AppDatabase.getDb(getActivity()).dao();
         mPopularList = new ArrayList<Long>(dao.getAllProductIDs());
 
 //        Drawable img = getResources().getDrawable(R.drawable.shirt);
