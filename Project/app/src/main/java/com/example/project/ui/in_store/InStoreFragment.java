@@ -96,20 +96,20 @@ public class InStoreFragment extends Fragment {
     private static final String KEY_LOCATION = "location";
 
 
-    private ArrayList<Product> mPopularList;
-    private ProductAdapter mPopularAdapter;
-    private LinearLayoutManager mPopularLayoutManager;
+    private ArrayList<Product> mPromotionsList;
+    private ProductAdapter mPromotionsAdapter;
+    private LinearLayoutManager mPromotionsLayoutManager;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        mPopularList = new ArrayList<Product>();
-        mPopularAdapter = new ProductAdapter(mPopularList, this);
+        mPromotionsList = new ArrayList<Product>();
+        mPromotionsAdapter = new ProductAdapter(mPromotionsList, this);
 
         inStoreViewModel =
                 new ViewModelProvider(this).get(InStoreViewModel.class);
         rootView = inflater.inflate(R.layout.fragment_in_store, container, false);
-        setupPopular(rootView);
+        setupPromotions(rootView);
         rootMapView = inflater.inflate(R.layout.activity_maps, container, false);
         loadStores();
         global_in_store_name = getGlobalStoreName();
@@ -263,24 +263,24 @@ public class InStoreFragment extends Fragment {
             return rootView;
     }
 
-    private void setupPopular(View k) {
-        RecyclerView popularRecyclerView = k.findViewById(R.id.popular_list_store);
-        mPopularLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-        mPopularLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        popularRecyclerView.setLayoutManager(mPopularLayoutManager);
-        popularRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        popularRecyclerView.setAdapter(mPopularAdapter);
-        getPopularItems();
+    private void setupPromotions(View k) {
+        RecyclerView promotionsRecyclerView = k.findViewById(R.id.promotions_list_store);
+        mPromotionsLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        mPromotionsLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        promotionsRecyclerView.setLayoutManager(mPromotionsLayoutManager);
+        promotionsRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        promotionsRecyclerView.setAdapter(mPromotionsAdapter);
+        getPromotionsItems();
     }
-    public void getPopularItems(){
+    public void getPromotionsItems(){
         DataBasee db = DataBasee.getDb(getActivity());
         List<ProductEntity> products_from_db = db.mAppDao().getAllProducts();
 
         Drawable img = getResources().getDrawable(R.drawable.shirt);
         for(ProductEntity dbItem : products_from_db){
-            if(dbItem.getShop().equals(getGlobalStoreName())){
+            if(dbItem.getShop().equals(getGlobalStoreName()) && dbItem.getDiscount() != 0.0f){
                 Product newProd = new Product(dbItem.getId(),dbItem.getName(), dbItem.getShop(), dbItem.getDescription(), dbItem.getPrice(), dbItem.getDiscount(), img, dbItem.getCategoryInEnum());
-                mPopularList.add(newProd);
+                mPromotionsList.add(newProd);
             }
         }
     }

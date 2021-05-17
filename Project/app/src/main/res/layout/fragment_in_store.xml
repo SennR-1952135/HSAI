@@ -15,7 +15,7 @@
         android:layout_marginEnd="8dp"
         android:textAlignment="center"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/popular_title2"
+        app:layout_constraintBottom_toTopOf="@+id/promotions_title2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,12 +23,12 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/popular_title2"
+        android:id="@+id/promotions_title2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="76dp"
         android:fontFamily="casual"
-        android:text="Popular "
+        android:text="Promotions "
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#673AB7"
         android:textStyle="bold"
@@ -38,13 +38,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/popular_list_store"
+        android:id="@+id/promotions_list_store"
         android:layout_width="371dp"
         android:layout_height="229dp"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/popular_title2"
+        app:layout_constraintTop_toBottomOf="@+id/promotions_title2"
         app:layout_goneMarginLeft="100dp" />
 
     <TableLayout
@@ -54,7 +54,7 @@
         android:layout_marginTop="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/popular_list_store">
+        app:layout_constraintTop_toBottomOf="@+id/promotions_list_store">
 
     </TableLayout>
 
