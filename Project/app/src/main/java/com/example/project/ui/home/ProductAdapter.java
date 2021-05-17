@@ -21,7 +21,7 @@ import com.example.project.R;
 import java.util.ArrayList;
 
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHolder> {
+public class ProductAdapter extends RecyclerView.Adapter<com.example.project.ui.home.ProductAdapter.MyViewHolder> {
     private ArrayList<Product> mProductList;
     private Fragment mContext;
     boolean addedToWishlist = false;

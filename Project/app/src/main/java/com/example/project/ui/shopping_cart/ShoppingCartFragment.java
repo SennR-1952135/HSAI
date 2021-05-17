@@ -16,10 +16,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project.DataBase.DataBasee;
 import com.example.project.DataBase.ProductInCart;
+import com.example.project.DataBase.ProductInWishlist;
 import com.example.project.Product;
 import com.example.project.R;
+import com.example.project.ui.wishlist.WishListItem;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -31,6 +34,12 @@ public class ShoppingCartFragment extends Fragment implements Observer {
     private LinearLayoutManager mLayoutManager;
 
     public ShoppingCartFragment(){ }
+
+
+    private String getGlobalStoreName() {
+        TextView t = getActivity().findViewById(R.id.in_store_name_global);
+        return t.getText().toString();
+    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_shopping_cart, container, false);
@@ -68,11 +77,30 @@ public class ShoppingCartFragment extends Fragment implements Observer {
         List<ProductInCart> p = db.mAppDao().getItemsOnCart();
         Drawable img = getResources().getDrawable(R.drawable.shirt);
 
-        for(ProductInCart i:p){
-            ShoppingCartItem m = new ShoppingCartItem(new Product(i.getProductid(),i.getProductname(),i.getShopname(),i.getPrice(),i.getOldprice(),img));
-            m.setQuantity(i.getCount());
-            m.setSize(i.getSize());
-            mShoppingCart.getItems().add(m);
+
+        System.out.println("STORE"+getGlobalStoreName());
+        if(getGlobalStoreName()==""){
+            for(ProductInCart i:p){
+                ShoppingCartItem m = new ShoppingCartItem(new Product(i.getProductid(),i.getProductname(),i.getShopname(),i.getPrice(),i.getOldprice(),img));
+                m.setQuantity(i.getCount());
+                m.setSize(i.getSize());
+                mShoppingCart.getItems().add(m);
+            }
+        }
+        else{
+            ArrayList<ShoppingCartItem> rest = new ArrayList<>();
+            for(ProductInCart i:p){
+                ShoppingCartItem m = new ShoppingCartItem(new Product(i.getProductid(),i.getProductname(),i.getShopname(),i.getPrice(),i.getOldprice(),img));
+                if(i.getShopname().equals(getGlobalStoreName())){
+                    mShoppingCart.getItems().add(m);
+                }
+                else{
+                    rest.add(m);
+                }
+            }
+            for(ShoppingCartItem i:rest){
+                mShoppingCart.getItems().add(i);
+            }
         }
     }
 

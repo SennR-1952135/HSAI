@@ -23,6 +23,7 @@ import com.example.project.Product;
 import com.example.project.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -111,10 +112,29 @@ public class WishlistFragment extends Fragment implements Observer {
         List<ProductInWishlist> p = db.mAppDao().getItemsOnWishlist();
         Drawable img = getResources().getDrawable(R.drawable.shirt);
 
-        for(ProductInWishlist i:p){
-            WishListItem m = new WishListItem(new Product(i.getProductid(),i.getProductname(),i.getShopname(),i.getPrice(),i.getOldprice(),img));
-            mWishlist.getItems().add(m);
+        System.out.println("STORE"+getGlobalStoreName());
+        if(getGlobalStoreName()==""){
+            for(ProductInWishlist i:p){
+                WishListItem m = new WishListItem(new Product(i.getProductid(),i.getProductname(),i.getShopname(),i.getPrice(),i.getOldprice(),img));
+                mWishlist.getItems().add(m);
+            }
         }
+        else{
+            ArrayList<WishListItem> rest = new ArrayList<>();
+            for(ProductInWishlist i:p){
+                WishListItem m = new WishListItem(new Product(i.getProductid(),i.getProductname(),i.getShopname(),i.getPrice(),i.getOldprice(),img));
+                if(i.getShopname().equals(getGlobalStoreName())){
+                    mWishlist.getItems().add(m);
+                }
+                else{
+                    rest.add(m);
+                }
+            }
+            for(WishListItem i:rest){
+                mWishlist.getItems().add(i);
+            }
+        }
+
     }
 
 

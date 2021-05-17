@@ -2,6 +2,7 @@ package com.example.project.ui.in_store;
 
 
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,10 +26,16 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project.DataBase.DataBasee;
+import com.example.project.DataBase.ProductEntity;
 import com.example.project.DataBase.StoreEntity;
+import com.example.project.Product;
 import com.example.project.R;
+import com.example.project.ui.home.ProductAdapter;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -42,6 +49,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import java.util.ArrayList;
 import java.util.List;
 import com.example.project.ui.in_store.scanFragment;
 
@@ -86,11 +95,21 @@ public class InStoreFragment extends Fragment {
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
 
+
+    private ArrayList<Product> mPopularList;
+    private ProductAdapter mPopularAdapter;
+    private LinearLayoutManager mPopularLayoutManager;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+        mPopularList = new ArrayList<Product>();
+        mPopularAdapter = new ProductAdapter(mPopularList, this);
+
         inStoreViewModel =
                 new ViewModelProvider(this).get(InStoreViewModel.class);
         rootView = inflater.inflate(R.layout.fragment_in_store, container, false);
+        setupPopular(rootView);
         rootMapView = inflater.inflate(R.layout.activity_maps, container, false);
         loadStores();
         global_in_store_name = getGlobalStoreName();
@@ -242,6 +261,28 @@ public class InStoreFragment extends Fragment {
             return rootMapView;
         else
             return rootView;
+    }
+
+    private void setupPopular(View k) {
+        RecyclerView popularRecyclerView = k.findViewById(R.id.popular_list_store);
+        mPopularLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        mPopularLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        popularRecyclerView.setLayoutManager(mPopularLayoutManager);
+        popularRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        popularRecyclerView.setAdapter(mPopularAdapter);
+        getPopularItems();
+    }
+    public void getPopularItems(){
+        DataBasee db = DataBasee.getDb(getActivity());
+        List<ProductEntity> products_from_db = db.mAppDao().getAllProducts();
+
+        Drawable img = getResources().getDrawable(R.drawable.shirt);
+        for(ProductEntity dbItem : products_from_db){
+            if(dbItem.getShop().equals(getGlobalStoreName())){
+                Product newProd = new Product(dbItem.getId(),dbItem.getName(), dbItem.getShop(), dbItem.getDescription(), dbItem.getPrice(), dbItem.getDiscount(), img, dbItem.getCategoryInEnum());
+                mPopularList.add(newProd);
+            }
+        }
     }
 
     public void openDialog(String title, String text) {
