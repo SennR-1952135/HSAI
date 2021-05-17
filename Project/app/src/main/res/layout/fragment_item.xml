@@ -10,8 +10,10 @@
         android:id="@+id/product_img"
         android:layout_width="match_parent"
         android:layout_height="185dp"
+        android:layout_marginTop="10dp"
         android:layout_weight="1"
         android:src="@drawable/shirt"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
     <TextView
