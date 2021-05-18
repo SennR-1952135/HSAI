@@ -1,15 +1,15 @@
 package com.example.project.ui.wishlist;
 
 
-import com.example.project.ProductClass;
+import com.example.project.Product;
 
 public class WishListItem {
-    private ProductClass mItem;
+    private Product mItem;
 
-    public WishListItem(ProductClass item){
+    public WishListItem(Product item){
         mItem = item;
     }
     // Getters:
-    public ProductClass getItem(){return mItem;}
+    public Product getItem(){return mItem;}
 
 }

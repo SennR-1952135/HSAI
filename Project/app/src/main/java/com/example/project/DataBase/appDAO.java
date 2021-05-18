@@ -7,6 +7,9 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.project.Enums.Color;
+import com.example.project.Enums.Gender;
+
 import java.util.List;
 
 @Dao
@@ -52,6 +55,26 @@ public interface appDAO {
 
     @Query("DELETE FROM Stores")
     void deleteStores();
+
+
+    @Query("SELECT DISTINCT DiscountAmount FROM Products WHERE Discounted == 1 AND DiscountAmount > 0 ORDER BY DiscountAmount ASC")
+    List<Float> getAllDiscounts();
+
+    @Query("SELECT Max(Price) FROM Products")
+    Float getMaxPrice();
+
+    @Query("SELECT DISTINCT Color FROM Products ORDER BY Color ASC")
+    List<Color> getAllColors();
+
+    @Query("SELECT DISTINCT Gender FROM Products ORDER BY Gender ASC")
+    List<Gender> getAllGenders();
+
+
+    @Query("SELECT ID FROM Stores WHERE Name == :name")
+    long getStoreIDByName(String name);
+
+    @Query("SELECT * FROM Stores WHERE ID == :ID")
+    Store getStoreByID(long ID);
 
 
     /**

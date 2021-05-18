@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project.DataBase.DataBasee;
 import com.example.project.DataBase.ProductInWishlist;
-import com.example.project.ProductClass;
+import com.example.project.Product;
 import com.example.project.R;
 
 import java.util.ArrayList;
@@ -112,14 +112,14 @@ public class WishlistFragment extends Fragment implements Observer {
         System.out.println("STORE"+getGlobalStoreName());
         if(getGlobalStoreName()==""){
             for(ProductInWishlist i:p){
-                WishListItem m = new WishListItem(new ProductClass(i.getProductid(),i.getProductname(),i.getShopname(),i.getPrice(),i.getOldprice(),img));
+                WishListItem m = new WishListItem(new Product(i.getProductid(),i.getProductname(),i.getShopname(),i.getPrice(),i.getOldprice(),img));
                 mWishlist.getItems().add(m);
             }
         }
         else{
             ArrayList<WishListItem> rest = new ArrayList<>();
             for(ProductInWishlist i:p){
-                WishListItem m = new WishListItem(new ProductClass(i.getProductid(),i.getProductname(),i.getShopname(),i.getPrice(),i.getOldprice(),img));
+                WishListItem m = new WishListItem(new Product(i.getProductid(),i.getProductname(),i.getShopname(),i.getPrice(),i.getOldprice(),img));
                 if(i.getShopname().equals(getGlobalStoreName())){
                     mWishlist.getItems().add(m);
                 }

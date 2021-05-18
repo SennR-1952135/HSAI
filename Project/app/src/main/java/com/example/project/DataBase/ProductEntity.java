@@ -70,13 +70,7 @@ public class ProductEntity {
         this.Color = color;
         this.Discounted = (discountAmount == 0);
         this.DiscountAmount = discountAmount;
-        if(discountAmount == 0.0f){
-            this.discount = 0.0f;
-        }
-        else{
-            this.discount = this.getPrice() * (1- (this.getDiscountAmount() / 100));
-        }
-
+        this.discount = (this.Discounted ? 0.0f : this.getPrice() * (1- (this.getDiscountAmount() / 100)));
         this.shop = storeName;
         this.Gender = gender;
         this.Image = image;

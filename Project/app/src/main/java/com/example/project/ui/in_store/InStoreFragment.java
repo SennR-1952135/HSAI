@@ -32,7 +32,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.project.DataBase.DataBasee;
 import com.example.project.DataBase.ProductEntity;
 import com.example.project.DataBase.Store;
-import com.example.project.ProductClass;
+import com.example.project.Product;
 import com.example.project.R;
 import com.example.project.ui.home.ProductAdapter;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -94,14 +94,14 @@ public class InStoreFragment extends Fragment {
     private static final String KEY_LOCATION = "location";
 
 
-    private ArrayList<ProductClass> mPromotionsList;
+    private ArrayList<Product> mPromotionsList;
     private ProductAdapter mPromotionsAdapter;
     private LinearLayoutManager mPromotionsLayoutManager;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        mPromotionsList = new ArrayList<ProductClass>();
+        mPromotionsList = new ArrayList<Product>();
         mPromotionsAdapter = new ProductAdapter(mPromotionsList, this);
 
         inStoreViewModel =
@@ -277,7 +277,7 @@ public class InStoreFragment extends Fragment {
         Drawable img = getResources().getDrawable(R.drawable.shirt);
         for(ProductEntity dbItem : products_from_db){
             if(dbItem.getShop().equals(getGlobalStoreName()) && dbItem.getDiscount() != 0.0f){
-                ProductClass newProd = new ProductClass(dbItem.getId(),dbItem.getName(), dbItem.getShop(), dbItem.getDescription(), dbItem.getPrice(), dbItem.getDiscount(), img, dbItem.getCategory());
+                Product newProd = new Product(dbItem.getId(),dbItem.getName(), dbItem.getShop(), dbItem.getDescription(), dbItem.getPrice(), dbItem.getDiscount(), img, dbItem.getCategory());
                 mPromotionsList.add(newProd);
             }
         }
