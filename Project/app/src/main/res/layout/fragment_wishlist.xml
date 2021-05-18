@@ -6,6 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".ui.in_store.InStoreFragment">
 
+    <TextView
+        android:id="@+id/k"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wishlist is empty!"
+        android:textStyle="bold"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.421"></TextView>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/wishlist_list"
         android:layout_width="415dp"

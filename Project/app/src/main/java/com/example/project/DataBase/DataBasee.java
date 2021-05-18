@@ -10,7 +10,7 @@ import androidx.room.TypeConverters;
 
 
 @Database(entities = {ProductEntity.class, StoreEntity.class,
-        ProductInCart.class, ProductInWishlist.class}, version = 23)
+        ProductInCart.class, ProductInWishlist.class,UserEntity.class}, version = 24)
 @TypeConverters({Converters.class})
 public abstract class DataBasee extends RoomDatabase {
 

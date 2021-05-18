@@ -78,6 +78,12 @@ public class WishlistFragment extends Fragment implements Observer {
         ImageView downempty = getView().findViewById(R.id.down_empty);
         ImageView share = getView().findViewById(R.id.shareIcon);
 
+        TextView emptyWishlist = getView().findViewById(R.id.k);
+        if(mWishlist.getItems().size()==0){
+            emptyWishlist.setVisibility(View.VISIBLE);
+        }
+        else emptyWishlist.setVisibility(View.INVISIBLE);
+
         up.setOnClickListener(v -> {
             upempty.setVisibility(View.VISIBLE);
             down.setVisibility(View.INVISIBLE);

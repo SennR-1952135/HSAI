@@ -37,11 +37,24 @@
     <fragment
         android:id="@+id/productFragment"
         android:name="com.example.project.ui.product_view.productFragment"
-        android:label="ProductView"
+        android:label="Product"
         tools:layout="@layout/fragment_item">
         <argument
             android:name="itemName"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/userInformation"
+        android:name="com.example.project.ui.shopping_cart.UserFragment"
+        android:label="User Information">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.example.project.ui.shopping_cart.paymentFragment"
+        android:label="Payment">
+
     </fragment>
 
 </navigation>

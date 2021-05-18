@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         StoreEntity s1 = new StoreEntity("ZARA", 50.930462, 5.337660);
         StoreEntity s2 = new StoreEntity("H&M", 50.934846, 5.336248);
-        StoreEntity s3 = new StoreEntity("BERSHKA", 50.934846, 5.336248);
+        StoreEntity s3 = new StoreEntity("BERSHKA", 50.92978288677856, 5.3374479978939515);
         db.mAppDao().createStore(s1);db.mAppDao().createStore(s2);db.mAppDao().createStore(s3);
 
         db.mAppDao().createProduct(new ProductEntity("Zwarte Shirt", "Zwarte shirt met streep", 10.99f, 0f, R.drawable.shirt, Category.TSHIRT, s1.getID(),s1.getName(), Color.GREEN, Gender.UNISEX, Size.M ));
