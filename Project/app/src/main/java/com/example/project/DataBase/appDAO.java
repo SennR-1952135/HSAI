@@ -15,6 +15,13 @@ import java.util.List;
 @Dao
 public interface appDAO {
 
+    //User
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insertUser(UserEntity user);
+
+    @Query("SELECT * FROM Users")
+    UserEntity getUser();
+
     //PRODUCT
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

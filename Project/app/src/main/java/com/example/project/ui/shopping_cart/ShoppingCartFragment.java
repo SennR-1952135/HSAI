@@ -6,9 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,6 +50,8 @@ public class ShoppingCartFragment extends Fragment implements Observer {
         super.onCreate(savedInstanceState);
         mShoppingCart = new ShoppingCart();
         mShoppingCartAdapter = new ShoppingCartAdapter(this, mShoppingCart);
+
+
     }
 
     @Override
@@ -60,11 +65,27 @@ public class ShoppingCartFragment extends Fragment implements Observer {
     public void setupItems(){
         RecyclerView recyclerView = getView().findViewById(R.id.shoppingcart_list);
         TextView price = getView().findViewById(R.id.shoppingcart_total_price);
+
         mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mShoppingCartAdapter);
         price.setText("€ " + String.format("%.2f", mShoppingCart.getTotal()));
+        ConstraintLayout payBtn = getView().findViewById(R.id.payBtn);
+
+        TextView emptyShoppingCart = getView().findViewById(R.id.k);
+        if(mShoppingCart.getItems().size()==0){
+            emptyShoppingCart.setVisibility(View.VISIBLE);
+        }
+        else emptyShoppingCart.setVisibility(View.INVISIBLE);
+        payBtn.setOnClickListener(v -> {
+            if(mShoppingCart.getItems().size()!=0){
+                (NavHostFragment.findNavController(this)).navigate(R.id.userInformation);
+            }
+            else  Toast.makeText(getActivity(), "You got 0 items in the cart!", Toast.LENGTH_SHORT).show();
+
+        });
+
 
 
     }

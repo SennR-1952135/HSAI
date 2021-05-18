@@ -52,12 +52,14 @@ public class MainActivity extends AppCompatActivity {
         Store s1 = new Store("ZARA", 50.930462, 5.337660);
         Store s2 = new Store("H&M", 50.934846, 5.336248);
         Store s3 = new Store("BERSHKA", 50.934846, 5.336248);
+
         db.mAppDao().createStore(s1);db.mAppDao().createStore(s2);db.mAppDao().createStore(s3);
 
         db.mAppDao().createProduct(new ProductEntity("Zwarte Shirt", "Zwarte shirt met streep", 10.99f, 0f, R.drawable.shirt, Category.TSHIRT, s1.getID(),s1.getName(), Color.GREEN, Gender.UNISEX, Size.M ));
-        db.mAppDao().createProduct(new ProductEntity("Blue Pants", "Some blue pants with stripes", 10.99f, 0f, R.drawable.shirt, Category.TSHIRT, s2.getID(),s2.getName(), Color.GREEN, Gender.UNISEX, Size.M ));
-        db.mAppDao().createProduct(new ProductEntity("Zwarte Shirt", "Zwarte shirt met streep", 20.99f, 25.0f, R.drawable.shirt, Category.PANTS, s2.getID(),s2.getName(), Color.GREEN, Gender.FEMALE, Size.S ));
+        db.mAppDao().createProduct(new ProductEntity("Blue Pants", "Some blue pants with stripes", 10.99f, 0f, R.drawable.shirt, Category.PANTS, s2.getID(),s2.getName(), Color.GREEN, Gender.UNISEX, Size.M ));
+        db.mAppDao().createProduct(new ProductEntity("Zwarte Shirt", "Zwarte shirt met streep", 20.99f, 25.0f, R.drawable.shirt, Category.TSHIRT, s2.getID(),s2.getName(), Color.GREEN, Gender.FEMALE, Size.S ));
         db.mAppDao().createProduct(new ProductEntity("Zwarte Shirt", "Zwarte shirt met streep", 10.99f, 10.0f, R.drawable.shirt, Category.TSHIRT, s3.getID(),s3.getName(), Color.GREEN, Gender.MALE, Size.M ));
+        db.mAppDao().createProduct(new ProductEntity("Grijs Shirt", "Grijs shirt met streep", 10.99f, 10.0f, R.drawable.shirt, Category.TSHIRT, s3.getID(),s3.getName(), Color.GREEN, Gender.MALE, Size.M ));
 
 
     }
