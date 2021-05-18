@@ -52,13 +52,13 @@ public interface appDAO {
     void deleteProducts();
 
     @Query("SELECT * FROM Stores WHERE name LIKE :p_name LIMIT 1")
-    Store getStore(String p_name);
+    StoreEntity getStore(String p_name);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void createStore(Store store);
+    void createStore(StoreEntity store);
 
     @Query("SELECT * FROM Stores")
-    List<Store> getAllStores();
+    List<StoreEntity> getAllStores();
 
     @Query("DELETE FROM Stores")
     void deleteStores();
@@ -69,6 +69,9 @@ public interface appDAO {
 
     @Query("SELECT Max(Price) FROM Products")
     Float getMaxPrice();
+
+    @Query("SELECT Max(DiscountAmount) FROM Products")
+    Float getMaxDiscount();
 
     @Query("SELECT DISTINCT Color FROM Products ORDER BY Color ASC")
     List<Color> getAllColors();
@@ -81,7 +84,7 @@ public interface appDAO {
     long getStoreIDByName(String name);
 
     @Query("SELECT * FROM Stores WHERE ID == :ID")
-    Store getStoreByID(long ID);
+    StoreEntity getStoreByID(long ID);
 
 
     /**

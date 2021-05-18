@@ -12,7 +12,7 @@ import android.location.Address;
 
 
 @Entity(tableName = "Stores")
-public class Store {
+public class StoreEntity {
     static private int storeCount = 0;
     @PrimaryKey(autoGenerate = false)
     @NonNull
@@ -73,7 +73,7 @@ public class Store {
         this.setLocation(address);
     }*/
 
-    public Store(String name, double lat, double longg) {
+    public StoreEntity(String name, double lat, double longg) {
         this.name = name;
         this.lat = lat;
         this.longg = longg;

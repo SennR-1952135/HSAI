@@ -1,5 +1,7 @@
 package com.example.project.DataBase;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -13,7 +15,7 @@ import com.example.project.Enums.Gender;
 import com.example.project.Enums.Size;
 
 @Entity(tableName = "Products")
-public class ProductEntity {
+public class ProductEntity{
 
     static private long productCount = 0;
     @PrimaryKey(autoGenerate = false)

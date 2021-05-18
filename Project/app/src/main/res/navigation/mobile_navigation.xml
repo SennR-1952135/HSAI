@@ -56,5 +56,11 @@
         android:label="Payment">
 
     </fragment>
+    <fragment
+        android:id="@+id/searchResultFragment"
+        android:name="com.example.project.ui.search.SearchResultFragment"
+        android:label="Search">
+    </fragment>
+
 
 </navigation>

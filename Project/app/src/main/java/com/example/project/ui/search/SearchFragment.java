@@ -1,5 +1,6 @@
 package com.example.project.ui.search;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +14,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.project.DataBase.*;
 import com.example.project.Enums.Color;
 import com.example.project.Enums.Gender;
 import com.example.project.Enums.Size;
 import com.example.project.R;
+import com.example.project.ui.in_store.scanFragment;
+
+import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -35,15 +41,19 @@ public class SearchFragment extends Fragment {
     LinearLayout sizeLL;
     LinearLayout genderLL;
     Button applyBtn;
+    Button scanBtn;
     View view;
     List<CheckBox> storeCB;
     List<CheckBox> discountCB;
     float maxPrice;
+    float minDiscount;
     List<CheckBox> colorCB;
     List<CheckBox> sizeCB;
     List<CheckBox> genderCB;
     List<ProductEntity> allProductEntities;
-    List<ProductEntity> filteredProductEntities;
+    ArrayList<ProductEntity> filteredProductEntities;
+    Fragment frm;
+    scanFragment sf;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +65,8 @@ public class SearchFragment extends Fragment {
         sizeCB = new ArrayList<CheckBox>();
         genderCB = new ArrayList<CheckBox>();
         allProductEntities = mdao.getAllProducts();
+        frm = this;
+        sf = new scanFragment();
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -66,15 +78,23 @@ public class SearchFragment extends Fragment {
         sizeLL = view.findViewById(R.id.SizeLinearLayout);
         genderLL = view.findViewById(R.id.GenderLinearLayout);
         applyBtn = view.findViewById(R.id.ApplyFilters);
+        scanBtn = view.findViewById(R.id.btnScan);
 
 //        LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
 
         createLayouts();
-        applyBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                filterProducts();
+        applyBtn.setOnClickListener(v -> {
+            filterProducts();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("filteredlist", filteredProductEntities);
+            (NavHostFragment.findNavController(frm)).navigate(R.id.searchResultFragment, bundle);
+        });
+        scanBtn.setOnClickListener(v -> {
+            FragmentTransaction t = getFragmentManager().beginTransaction();
+            if (Build.VERSION.SDK_INT>= 26) {
+                t.setReorderingAllowed(false);
             }
+            t.replace(((ViewGroup)getView().getParent()).getId(), sf, "scanFragment").commit();
         });
         return view;
     }
@@ -92,9 +112,9 @@ public class SearchFragment extends Fragment {
         LinearLayout llv = new LinearLayout(getContext());
         llv.setOrientation(LinearLayout.VERTICAL);
         LinearLayout llh = new LinearLayout(getContext());
-        List<Store> allStores = mdao.getAllStores();
+        List<StoreEntity> allStores = mdao.getAllStores();
         int storeCount = 0;
-        for (Store st : allStores) {
+        for (StoreEntity st : allStores) {
             if(storeCount++ % 3 == 0){
                 llv.addView(llh);
                 llh = new LinearLayout(getContext());
@@ -109,29 +129,30 @@ public class SearchFragment extends Fragment {
     }
 
     private void createDiscountLL(){
-        LinearLayout llv = new LinearLayout(getContext());
-        llv.setOrientation(LinearLayout.VERTICAL);
-        LinearLayout llh = new LinearLayout(getContext());
-        List<Float> discounts = mdao.getAllDiscounts();
-        if (discounts.size() > 0) {
-            int discountCount = 0;
-            for (Float discountamount : discounts) {
-                if (discountCount++ % 3 == 0) {
-                    llv.addView(llh);
-                    llh = new LinearLayout(getContext());
-                }
-                CheckBox cb = new CheckBox(getContext());
-                cb.setText(new DecimalFormat("###.##").format(discountamount));
-                discountCB.add(cb);
-                llh.addView(cb);
+        SeekBar sb = discountLL.findViewById(R.id.DiscountSeekBar);
+        int max = (int) Math.floor(mdao.getMaxDiscount());
+        sb.setMax(max);
+        TextView tvmax = discountLL.findViewById(R.id.MaxDiscountSeekbarLable);
+        TextView tvcurr = discountLL.findViewById(R.id.DiscountSeekbarSelectedAmount);
+        tvmax.setText(String.format("%s%%", String.valueOf(max)));
+        tvcurr.setText(String.format("%s%%", String.valueOf(sb.getProgress())));
+        sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                tvcurr.setText(String.valueOf(progress));
+                minDiscount = (float) progress;
             }
-            llv.addView(llh);
-        } else {
-            TextView noDiscount = new TextView(getContext());
-            noDiscount.setText("There are no discounts to filter from");
-            llv.addView(noDiscount);
-        }
-        discountLL.addView(llv);
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 
     private void createPriceLL(){
@@ -140,8 +161,8 @@ public class SearchFragment extends Fragment {
         sb.setMax(max);
         TextView tvmax = priceLL.findViewById(R.id.MaxSeekbarLable);
         TextView tvcur = priceLL.findViewById(R.id.SeekbarSelectedAmount);
-        tvmax.setText(String.valueOf(max));
-        tvcur.setText(String.valueOf(sb.getProgress()));
+        tvmax.setText(String.format("%s€", String.valueOf(max)));
+        tvcur.setText(String.format("%s€", String.valueOf(sb.getProgress())));
         sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
 
             @Override
@@ -229,67 +250,82 @@ public class SearchFragment extends Fragment {
         filterColor();
         filterSize();
         filterGender();
-        System.out.println("test");
     }
 
     private void filterStore(){
         List<ProductEntity> newFilter = new ArrayList<ProductEntity>();
         List<String> stores = new ArrayList<String>();
         for(CheckBox cb : storeCB) if(cb.isChecked()) stores.add((String) cb.getText());
-        List<Long> storeIDs = new ArrayList<Long>();
-        for (String name : stores) storeIDs.add(mdao.getStoreIDByName(name));
-        for(ProductEntity p : filteredProductEntities){
-            for(Long id : storeIDs){
-                if (p.getStoreID() == id && !newFilter.contains(p)) newFilter.add(p);
+        if(stores.size() > 0) {
+            List<Long> storeIDs = new ArrayList<Long>();
+            for (String name : stores) storeIDs.add(mdao.getStoreIDByName(name));
+            for (ProductEntity p : filteredProductEntities) {
+                for (Long id : storeIDs) {
+                    if (p.getStoreID() == id && !newFilter.contains(p)) newFilter.add(p);
+                }
             }
+            filteredProductEntities = new ArrayList<>(newFilter);
         }
-        filteredProductEntities = new ArrayList<>(newFilter);
     }
 
     private void filterDiscount(){
-
+        if(minDiscount > 0) {
+            List<ProductEntity> newFilter = new ArrayList<>();
+            for (ProductEntity p : filteredProductEntities)
+                if (p.getDiscountAmount() >= minDiscount) newFilter.add(p);
+            filteredProductEntities = new ArrayList<>(newFilter);
+        }
     }
 
     private void filterPrice(){
-        List<ProductEntity> newFilter = new ArrayList<ProductEntity>();
-        for(ProductEntity p : filteredProductEntities) if(p.getPrice() <= maxPrice) newFilter.add(p);
-        filteredProductEntities = new ArrayList<>(newFilter);
+        if(maxPrice > 0) {
+            List<ProductEntity> newFilter = new ArrayList<>();
+            for (ProductEntity p : filteredProductEntities)
+                if (p.getPrice() <= maxPrice) newFilter.add(p);
+            filteredProductEntities = new ArrayList<>(newFilter);
+        }
     }
 
     private void filterColor(){
         List<ProductEntity> newFilter = new ArrayList<ProductEntity>();
         List<Color> colors = new ArrayList<Color>();
         for(CheckBox cb : colorCB) if(cb.isChecked()) colors.add(Color.valueOf((String) cb.getText()));
-        for(ProductEntity p : filteredProductEntities){
-            for(Color col : colors){
-                if (p.getColor() == col && !newFilter.contains(p)) newFilter.add(p);
+        if(colors.size()>0) {
+            for (ProductEntity p : filteredProductEntities) {
+                for (Color col : colors) {
+                    if (p.getColor() == col && !newFilter.contains(p)) newFilter.add(p);
+                }
             }
+            filteredProductEntities = new ArrayList<>(newFilter);
         }
-        filteredProductEntities = new ArrayList<>(newFilter);
     }
 
     private void filterSize(){
         List<ProductEntity> newFilter = new ArrayList<ProductEntity>();
         List<Size> sizes = new ArrayList<Size>();
         for(CheckBox cb : sizeCB) if(cb.isChecked()) sizes.add(Size.valueOf((String) cb.getText()));
-        for(ProductEntity p : filteredProductEntities){
-            for(Size s : sizes){
-                if (p.getSize() == s && !newFilter.contains(p)) newFilter.add(p);
+        if(sizes.size() > 0) {
+            for (ProductEntity p : filteredProductEntities) {
+                for (Size s : sizes) {
+                    if (p.getSize() == s && !newFilter.contains(p)) newFilter.add(p);
+                }
             }
+            filteredProductEntities = new ArrayList<>(newFilter);
         }
-        filteredProductEntities = new ArrayList<>(newFilter);
     }
 
     private void filterGender(){
         List<ProductEntity> newFilter = new ArrayList<ProductEntity>();
         List<Gender> genders = new ArrayList<Gender>();
         for(CheckBox cb : genderCB) if(cb.isChecked()) genders.add(Gender.valueOf((String) cb.getText()));
-        for(ProductEntity p : filteredProductEntities){
-            for(Gender gen : genders){
-                if (p.getGender() == gen && !newFilter.contains(p)) newFilter.add(p);
+        if(genders.size() > 0) {
+            for (ProductEntity p : filteredProductEntities) {
+                for (Gender gen : genders) {
+                    if (p.getGender() == gen && !newFilter.contains(p)) newFilter.add(p);
+                }
             }
+            filteredProductEntities = new ArrayList<>(newFilter);
         }
-        filteredProductEntities = new ArrayList<>(newFilter);
     }
 
 
