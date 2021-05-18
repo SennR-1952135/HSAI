@@ -31,7 +31,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project.DataBase.DataBasee;
 import com.example.project.DataBase.ProductEntity;
-import com.example.project.DataBase.StoreEntity;
+import com.example.project.DataBase.Store;
 import com.example.project.ProductClass;
 import com.example.project.R;
 import com.example.project.ui.home.ProductAdapter;
@@ -54,7 +54,7 @@ import java.util.List;
 
 public class InStoreFragment extends Fragment {
 
-    private List<StoreEntity> stores;
+    private List<Store> stores;
     private String global_in_store_name;
 
     private InStoreViewModel inStoreViewModel;
@@ -244,7 +244,7 @@ public class InStoreFragment extends Fragment {
                 // Get the current location of the device and set the position of the map.
                 getDeviceLocation();
 
-                for(StoreEntity store : stores){
+                for(Store store : stores){
                     map.addMarker(new MarkerOptions()
                     .position(new LatLng(store.getLat(), store.getLongg()))
                     .title(store.getName())

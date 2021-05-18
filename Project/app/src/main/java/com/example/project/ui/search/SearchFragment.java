@@ -100,7 +100,7 @@ public class SearchFragment extends Fragment {
                 llh = new LinearLayout(getContext());
             }
             CheckBox cb = new CheckBox(getContext());
-            cb.setText(st.getmName());
+            cb.setText(st.getName());
             storeCB.add(cb);
             llh.addView(cb);
         }
@@ -240,7 +240,7 @@ public class SearchFragment extends Fragment {
         for (String name : stores) storeIDs.add(mdao.getStoreIDByName(name));
         for(ProductEntity p : filteredProductEntities){
             for(Long id : storeIDs){
-                if (p.getmStoreID() == id && !newFilter.contains(p)) newFilter.add(p);
+                if (p.getStoreID() == id && !newFilter.contains(p)) newFilter.add(p);
             }
         }
         filteredProductEntities = new ArrayList<>(newFilter);
@@ -252,7 +252,7 @@ public class SearchFragment extends Fragment {
 
     private void filterPrice(){
         List<ProductEntity> newFilter = new ArrayList<ProductEntity>();
-        for(ProductEntity p : filteredProductEntities) if(p.getmPrice() <= maxPrice) newFilter.add(p);
+        for(ProductEntity p : filteredProductEntities) if(p.getPrice() <= maxPrice) newFilter.add(p);
         filteredProductEntities = new ArrayList<>(newFilter);
     }
 
@@ -262,7 +262,7 @@ public class SearchFragment extends Fragment {
         for(CheckBox cb : colorCB) if(cb.isChecked()) colors.add(Color.valueOf((String) cb.getText()));
         for(ProductEntity p : filteredProductEntities){
             for(Color col : colors){
-                if (p.getmColor() == col && !newFilter.contains(p)) newFilter.add(p);
+                if (p.getColor() == col && !newFilter.contains(p)) newFilter.add(p);
             }
         }
         filteredProductEntities = new ArrayList<>(newFilter);
@@ -274,7 +274,7 @@ public class SearchFragment extends Fragment {
         for(CheckBox cb : sizeCB) if(cb.isChecked()) sizes.add(Size.valueOf((String) cb.getText()));
         for(ProductEntity p : filteredProductEntities){
             for(Size s : sizes){
-                if (p.getmSize() == s && !newFilter.contains(p)) newFilter.add(p);
+                if (p.getSize() == s && !newFilter.contains(p)) newFilter.add(p);
             }
         }
         filteredProductEntities = new ArrayList<>(newFilter);
@@ -286,7 +286,7 @@ public class SearchFragment extends Fragment {
         for(CheckBox cb : genderCB) if(cb.isChecked()) genders.add(Gender.valueOf((String) cb.getText()));
         for(ProductEntity p : filteredProductEntities){
             for(Gender gen : genders){
-                if (p.getmGender() == gen && !newFilter.contains(p)) newFilter.add(p);
+                if (p.getGender() == gen && !newFilter.contains(p)) newFilter.add(p);
             }
         }
         filteredProductEntities = new ArrayList<>(newFilter);
