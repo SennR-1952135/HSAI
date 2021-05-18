@@ -2,7 +2,8 @@ package com.example.project;
 
 import android.graphics.drawable.Drawable;
 
-import com.example.project.ui.product_view.ClothingSize;
+import com.example.project.Enums.*;
+
 
 import java.util.ArrayList;
 
@@ -15,24 +16,24 @@ public class Product {
     private String mDiscription;
     private Drawable mImage;
 
-    public ArrayList<ClothingSize> getAvailableSizes() {
+    public ArrayList<Size> getAvailableSizes() {
         return availableSizes;
     }
 
-    public void setAvailableSizes(ArrayList<ClothingSize> availableSizes) {
+    public void setAvailableSizes(ArrayList<Size> availableSizes) {
         this.availableSizes = availableSizes;
     }
-    public void setSizes(ArrayList<ClothingSize> sizes){
+    public void setSizes(ArrayList<Size> sizes){
         this.sizes = sizes;
     }
 
-    private ArrayList<ClothingSize> availableSizes;
+    private ArrayList<Size> availableSizes;
 
-    public ArrayList<ClothingSize> getSizes() {
+    public ArrayList<Size> getSizes() {
         return sizes;
     }
 
-    private ArrayList<ClothingSize> sizes;
+    private ArrayList<Size> sizes;
 
 
     private ArrayList<Drawable> mImages;
@@ -63,8 +64,8 @@ public class Product {
     }
 
 
-    public boolean isSizeAvailable(ClothingSize a){
-        for(ClothingSize q: availableSizes){
+    public boolean isSizeAvailable(Size a){
+        for(Size q: availableSizes){
             if(q.equals(a)){
                 return true;
             }

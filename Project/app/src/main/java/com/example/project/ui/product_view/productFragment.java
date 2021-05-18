@@ -22,14 +22,21 @@ import com.example.project.DataBase.ProductInCart;
 import com.example.project.DataBase.ProductInWishlist;
 import com.example.project.Product;
 import com.example.project.R;
+import com.example.project.Enums.*;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import org.w3c.dom.Text;
+
+/**
+ * @author Melih Demirel
+ */
 
 public class productFragment extends Fragment {
     private Product mProd;
     private final productFragment m_self_ref = this;
     public productFragment(){}
-    DataBasee db;
+    private DataBasee db;
+    private ProductEntity dbP;
     static productFragment newInstance(int itemID){
         productFragment productFragment = new productFragment();
         Bundle args = new Bundle();
@@ -44,13 +51,11 @@ public class productFragment extends Fragment {
         String prodId = getArguments().getString("itemId");
         if(prodId!=null){
             Drawable img = getResources().getDrawable(R.drawable.shirt);
-            DataBasee db = DataBasee.getDb(getActivity());
+            db = DataBasee.getDb(getActivity());
             int prodIdd = Integer.parseInt(prodId);
-            ProductEntity dbP = db.mAppDao().getProduct(prodIdd);
-            mProd = new Product(dbP.getId(),dbP.getName(), dbP.getShop(), dbP.getDescription(), dbP.getPrice(), dbP.getDiscount(), img , dbP.getCategoryInEnum());
+            dbP = db.mAppDao().getProduct(prodIdd);
+            mProd = new Product(dbP.getId(),dbP.getName(), dbP.getShop(), dbP.getDescription(), dbP.getPrice(), dbP.getDiscount(), img , dbP.getCategory());
         }
-        db = DataBasee.getDb(this.getActivity());
-
     }
 
     @Override
@@ -79,7 +84,8 @@ public class productFragment extends Fragment {
 
         TextView price = view.findViewById(R.id.price);
         TextView oldPrice = view.findViewById(R.id.old_price);
-
+        TextView color = view.findViewById(R.id.product_color);
+        color.setText(dbP.getColor().toString());
         name.setText(mProd.getName());
         img.setImageDrawable(mProd.getImage());
         store.setText(mProd.getStore());

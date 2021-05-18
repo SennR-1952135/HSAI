@@ -1,14 +1,16 @@
 package com.example.project;
 
-import android.location.Geocoder;
 import android.os.Bundle;
 
 import com.example.project.DataBase.DataBasee;
 import com.example.project.DataBase.ProductEntity;
 import com.example.project.DataBase.StoreEntity;
-import com.example.project.ui.shopping_cart.ShoppingCart;
+import com.example.project.Enums.Category;
 
 
+import com.example.project.Enums.Color;
+import com.example.project.Enums.Gender;
+import com.example.project.Enums.Size;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,11 +18,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
-import java.io.IOException;
-import java.util.Locale;
-import java.util.Observable;
-import java.util.Observer;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,22 +48,18 @@ public class MainActivity extends AppCompatActivity {
         db.mAppDao().deleteProducts();
         db.mAppDao().removeAllInCart();
 
-        db.mAppDao().createProduct(new ProductEntity(1, "Black Shirt", "H&M", "Black shirt with logo.",10.99f, 0f,Category.SHIRT));
-        db.mAppDao().createProduct(new ProductEntity(2, "Blue Pants", "H&M", "Some blue pants with stripes.",20.99f, 15.55f,Category.PANTS));
-        db.mAppDao().createProduct(new ProductEntity(3, "Shoes", "ZARA", "Zwarte shirt met streep",10.99f, 8.55f,Category.SHOES));
-        db.mAppDao().createProduct(new ProductEntity(5, "Zwarte Shirt", "BERSHKA", "Zwarte shirt met streep",10.99f, 8.55f,Category.SHIRT));
-        db.mAppDao().createStore(new StoreEntity("ZARA", 50.930462, 5.337660));
-        db.mAppDao().createStore(new StoreEntity("H&M", 50.934846, 5.336248));
-        db.mAppDao().createStore(new StoreEntity("BERSHKA", 50.92980317303619, 5.33745872717891));
+
+        StoreEntity s1 = new StoreEntity("ZARA", 50.930462, 5.337660);
+        StoreEntity s2 = new StoreEntity("H&M", 50.934846, 5.336248);
+        StoreEntity s3 = new StoreEntity("BERSHKA", 50.934846, 5.336248);
+        db.mAppDao().createStore(s1);db.mAppDao().createStore(s2);db.mAppDao().createStore(s3);
+
+        db.mAppDao().createProduct(new ProductEntity("Zwarte Shirt", "Zwarte shirt met streep", 10.99f, 0f, R.drawable.shirt, Category.TSHIRT, s1.getID(),s1.getName(), Color.GREEN, Gender.UNISEX, Size.M ));
+        db.mAppDao().createProduct(new ProductEntity("Blue Pants", "Some blue pants with stripes", 10.99f, 0f, R.drawable.shirt, Category.TSHIRT, s2.getID(),s2.getName(), Color.GREEN, Gender.UNISEX, Size.M ));
+        db.mAppDao().createProduct(new ProductEntity("Zwarte Shirt", "Zwarte shirt met streep", 20.99f, 25.0f, R.drawable.shirt, Category.PANTS, s2.getID(),s2.getName(), Color.GREEN, Gender.FEMALE, Size.S ));
+        db.mAppDao().createProduct(new ProductEntity("Zwarte Shirt", "Zwarte shirt met streep", 10.99f, 10.0f, R.drawable.shirt, Category.TSHIRT, s3.getID(),s3.getName(), Color.GREEN, Gender.MALE, Size.M ));
+
+
     }
 
-
-
-
-    public void navigateTo(int actionId, Bundle bundle){
-        //if (mDrawerLayout.isDrawerOpen(GravityCompat.END)){ // If you tap on an item but the shopping cart is open, close it
-            //mDrawerLayout.closeDrawer(GravityCompat.END);
-        //}
-        mNavController.navigate(actionId, bundle);
-    }
 }

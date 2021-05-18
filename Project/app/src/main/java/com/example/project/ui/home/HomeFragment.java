@@ -81,7 +81,7 @@ public class HomeFragment extends Fragment {
         Drawable img = getResources().getDrawable(R.drawable.shirt);
         for(ProductEntity dbItem : products_from_db){
             if(dbItem.getDiscount()==0.0f) {
-                Product newProd = new Product(dbItem.getId(),dbItem.getName(), dbItem.getShop(), dbItem.getDescription(), dbItem.getPrice(), dbItem.getDiscount(), img, dbItem.getCategoryInEnum());
+                Product newProd = new Product(dbItem.getId(),dbItem.getName(), dbItem.getShop(), dbItem.getDescription(), dbItem.getPrice(), dbItem.getDiscount(), img, dbItem.getCategory());
                 mPopularList.add(newProd);
             }
         }
@@ -94,7 +94,7 @@ public class HomeFragment extends Fragment {
         Drawable img = getResources().getDrawable(R.drawable.shirt);
         for(ProductEntity dbItem : products_from_db){
             if(dbItem.getDiscount()!=0.0f){
-                Product newProd = new Product(dbItem.getId(),dbItem.getName(), dbItem.getShop(), dbItem.getDescription(),dbItem.getPrice(), dbItem.getDiscount(), img , dbItem.getCategoryInEnum());
+                Product newProd = new Product(dbItem.getId(),dbItem.getName(), dbItem.getShop(), dbItem.getDescription(),dbItem.getPrice(), dbItem.getDiscount(), img , dbItem.getCategory());
                 mPromoList.add(newProd);
             }
         }

@@ -6,13 +6,12 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.room.migration.Migration;
-import androidx.sqlite.db.SupportSQLiteDatabase;
+import androidx.room.TypeConverters;
 
-import com.example.project.AppDatabase;
 
 @Database(entities = {ProductEntity.class, StoreEntity.class,
-        ProductInCart.class, ProductInWishlist.class}, version = 16)
+        ProductInCart.class, ProductInWishlist.class}, version = 23)
+@TypeConverters({Converters.class})
 public abstract class DataBasee extends RoomDatabase {
 
     private static DataBasee INSTANCE;

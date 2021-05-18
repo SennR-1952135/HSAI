@@ -13,7 +13,8 @@ import android.location.Address;
 
 @Entity(tableName = "Stores")
 public class StoreEntity {
-    @PrimaryKey(autoGenerate = true)
+    static private int storeCount = 0;
+    @PrimaryKey(autoGenerate = false)
     @NonNull
     private int ID;
 
@@ -76,6 +77,7 @@ public class StoreEntity {
         this.name = name;
         this.lat = lat;
         this.longg = longg;
+        this.ID = storeCount++;
     }
 
     /*public float getPrice() {return price;}

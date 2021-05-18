@@ -40,6 +40,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/product_store" />
 
+
     <TextView
         android:id="@+id/price"
         android:layout_width="wrap_content"
@@ -49,18 +50,17 @@
         android:text="€ 10.99"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/product_name" />
+        app:layout_constraintTop_toBottomOf="@+id/product_color" />
 
     <TextView
         android:id="@+id/old_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="12dp"
         android:text="€ 100.99"
         app:layout_constraintStart_toEndOf="@+id/price"
-        app:layout_constraintTop_toBottomOf="@+id/product_name" />
-
+        app:layout_constraintTop_toBottomOf="@+id/product_color" />
 
     <ImageButton
         android:id="@+id/addToWishlistBtn"
@@ -177,6 +177,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addToWishlistBtn" />
 
+    <TextView
+        android:id="@+id/product_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="DQZd  "
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/product_name" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
