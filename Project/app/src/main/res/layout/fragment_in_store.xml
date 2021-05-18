@@ -15,95 +15,46 @@
         android:layout_marginEnd="8dp"
         android:textAlignment="center"
         android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/promotions_title2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/promotions_title2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="76dp"
+        android:fontFamily="casual"
+        android:text="Promotions "
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#673AB7"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.048"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/promotions_list_store"
+        android:layout_width="371dp"
+        android:layout_height="229dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/promotions_title2"
+        app:layout_goneMarginLeft="100dp" />
 
     <TableLayout
         android:id="@+id/tableLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_in_store_store_name">
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="409dp"
-                android:layout_height="match_parent"
-                tools:layout_editor_absoluteX="1dp">
-
-                <Button
-                    android:id="@+id/btn_in_store_find_in_shop"
-                    android:layout_width="150dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="8dp"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/title_btn_in_store_search_in_shop"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/btn_in_store_scan"
-                    app:layout_constraintHorizontal_chainStyle="spread"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Button
-                    android:id="@+id/btn_in_store_scan"
-                    android:layout_width="150dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="8dp"
-                    android:text="@string/title_btn_in_store_scan"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/btn_in_store_find_in_shop"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent">
-
-                <Button
-                    android:id="@+id/btn_in_store_promo"
-                    android:layout_width="150dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="8dp"
-                    android:text="@string/title_btn_in_store_promotions"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/btn_in_store_whishlist"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Button
-                    android:id="@+id/btn_in_store_whishlist"
-                    android:layout_width="150dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="8dp"
-                    android:text="@string/title_btn_in_store_whishlist"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/btn_in_store_promo"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </TableRow>
+        app:layout_constraintTop_toBottomOf="@+id/promotions_list_store">
 
     </TableLayout>
 
@@ -111,7 +62,7 @@
         android:id="@+id/tableLayout3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="45dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tableLayout">
@@ -134,15 +85,15 @@
 
             <RatingBar
                 android:id="@+id/queue_in_store_checkout"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
-                android:numStars="6"
-                android:padding="8dp"
+                android:numStars="5"
+                android:paddingTop="12dp"
                 android:progressDrawable="@drawable/custom_rating_icons"
-                android:rating="3.0"
-                android:stepSize="1.0" />
+                android:rating="1"
+                android:stepSize="1" />
 
             <ImageButton
                 android:id="@+id/btn_in_store_help_queue_checkout"
@@ -170,14 +121,14 @@
 
             <RatingBar
                 android:id="@+id/queue_in_store_fitting_rooms"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
-                android:numStars="6"
-                android:padding="8dp"
+                android:numStars="5"
+                android:paddingTop="12dp"
                 android:progressDrawable="@drawable/custom_rating_icons"
-                android:rating="3.0"
-                android:stepSize="1.0" />
+                android:rating="4"
+                android:stepSize="1" />
 
             <ImageButton
                 android:id="@+id/btn_in_store_help_queue_fitting_rooms"
@@ -192,15 +143,28 @@
     </TableLayout>
 
     <Button
+        android:id="@+id/btn_in_store_scanner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/title_btn_in_store_scanner"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout3"
+        app:layout_constraintVertical_bias="0.13999999" />
+
+    <Button
         android:id="@+id/btn_in_store_find_new_store"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/title_btn_in_store_search_new_store"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableLayout3" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_in_store_scanner"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/shoppingcart_item"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:elevation="4dp"
+    app:cardCornerRadius="3dp"
+    android:focusable="true"
+    app:cardUseCompatPadding="true"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="135dp">
+
+        <ImageView
+            android:id="@+id/shoppingcart_img"
+            android:layout_width="92dp"
+            android:layout_height="116dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/shirt" />
+
+        <TextView
+            android:id="@+id/shoppingcart_itemname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:text="Zwarte Shirt"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/shoppingcart_img"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/shoppingcart_itemprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:text="€ 15.99"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/shoppingcart_img"
+            app:layout_constraintTop_toBottomOf="@+id/shoppingcart_itemname" />
+
+
+        <TextView
+            android:id="@+id/shoppingcart_itemsize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="S"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/shoppingcart_img"
+            app:layout_constraintTop_toBottomOf="@+id/shoppingcart_itemprice" />
+
+        <EditText
+            android:id="@+id/shoppingcart_itemcount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:cursorVisible="true"
+            android:ellipsize="end"
+            android:ems="2"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center_horizontal"
+            android:inputType="number"
+            android:maxLines="1"
+            android:padding="2dp"
+            android:text="99"
+            android:textColor="@android:color/black"
+            android:textSize="15dp"
+            app:layout_constraintStart_toEndOf="@+id/shoppingcart_removeCount"
+            app:layout_constraintTop_toBottomOf="@+id/shoppingcart_itemsize" />
+
+        <ImageView
+            android:id="@+id/shoppingcart_addCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toEndOf="@+id/shoppingcart_itemcount"
+            app:layout_constraintTop_toBottomOf="@+id/shoppingcart_itemsize"
+            app:srcCompat="@drawable/add"
+            app:tint="@color/black"
+            tools:ignore="VectorDrawableCompat" />
+
+        <ImageView
+            android:id="@+id/shoppingcart_removeCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toEndOf="@+id/shoppingcart_img"
+            app:layout_constraintTop_toBottomOf="@+id/shoppingcart_itemsize"
+            app:srcCompat="@drawable/minus"
+            tools:ignore="VectorDrawableCompat" />
+
+        <ImageView
+            android:id="@+id/cart_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_delete"
+            app:tint="@color/red" />
+
+        <ImageView
+            android:id="@+id/cart_addToWishlist"
+            android:layout_width="31dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.995"
+            app:layout_constraintStart_toStartOf="@+id/shoppingcart_itemsize"
+            app:layout_constraintTop_toBottomOf="@+id/cart_delete"
+            app:srcCompat="@drawable/heart_wishlist_empty"
+            app:tint="@color/black"
+            tools:ignore="VectorDrawableCompat" />
+
+        <ImageView
+            android:id="@+id/cart_removeFromWishlist"
+            android:layout_width="31dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.995"
+            app:layout_constraintStart_toStartOf="@+id/shoppingcart_itemsize"
+            app:layout_constraintTop_toBottomOf="@+id/cart_delete"
+            app:srcCompat="@drawable/heart_wishlist"
+            app:tint="@color/black"
+            android:visibility="invisible"
+            tools:ignore="VectorDrawableCompat" />
+
+        <TextView
+            android:id="@+id/shoppingcart_old_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:text="€ 20.99"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/shoppingcart_itemprice"
+            app:layout_constraintTop_toBottomOf="@+id/shoppingcart_itemname" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

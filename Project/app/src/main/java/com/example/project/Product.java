@@ -3,60 +3,88 @@ package com.example.project;
 import android.graphics.drawable.Drawable;
 import androidx.room.*;
 
+import com.example.project.Enums.*;
+
+
 import java.util.ArrayList;
 
-@Entity(tableName = "Product")
 public class Product {
 
-
-
-    enum Size {
-        XS,
-        S,
-        M,
-        L,
-        XL
-    }
-
-
-    enum Gender {
-        MAN,
-        VROUW,
-        KIND,
-        UNISEX
-    }
-
-    @PrimaryKey(autoGenerate = true)
-    private long productID;
-
-    private float mPrijs;
-    private String mNaam;
-    private String mBeschrijving;
-    private long mWinkelID;
-    private Color mKleur;
-    private boolean mKorting;
-    private ArrayList<Size> mMaaten;
-    private Gender mbedoeldVoor;
-    private float mDiscount;
+    private String mName;
+    private String mStore;
+    private float mPrice;
+    private float mWithoutDiscountPrice;
+    private String mDiscription;
     private Drawable mImage;
+
+    public ArrayList<Size> getAvailableSizes() {
+        return availableSizes;
+    }
+
+    public void setAvailableSizes(ArrayList<Size> availableSizes) {
+        this.availableSizes = availableSizes;
+    }
+    public void setSizes(ArrayList<Size> sizes){
+        this.sizes = sizes;
+    }
+
+    private ArrayList<Size> availableSizes;
+
+    public ArrayList<Size> getSizes() {
+        return sizes;
+    }
+
+    private ArrayList<Size> sizes;
+
+
+    private ArrayList<Drawable> mImages;
+    private int mProductId;
+
+    private String mWinkel;
 
     private Category mCat;
 
 
-    public Product(String name, String store, String discription , float prodPrice, float withoutDiscount, Drawable img, Category cat){
+    public Product(int id,String name, String store, String discription , float prodPrice, float withoutDiscount, Drawable img, Category cat){
+        mProductId = id;
         mName = name;
         mWinkel = store;
         mDiscription = discription;
         mPrice = prodPrice;
-        mdiscount = withoutDiscount;
+        mWithoutDiscountPrice = withoutDiscount;
         mImage = img;
         mCat = cat;
     }
 
+    public Product(int id, String name, String store,float prodPrice, float withoutDiscount, Drawable img){
+        mProductId = id;
+        mName = name;
+        mStore = store;
+        mPrice = prodPrice;
+        mWithoutDiscountPrice = withoutDiscount;
+        mImage = img;
+    }
+
+
+    public boolean isSizeAvailable(Size a){
+        for(Size q: availableSizes){
+            if(q.equals(a)){
+                return true;
+            }
+        }
+        return false;
+    }
     /*
     Getters AND SETTERS
      */
 
+    public ArrayList<Drawable> getImages() { return mImages; }
+
+    public void setImages(ArrayList<Drawable> mImages) { this.mImages = mImages; }
+
+    public int getProductId() { return mProductId; }
+
+    public void setProductId(int mID) { this.mProductId = mID; }
     public String getName() {
         return mName;
     }
@@ -111,11 +139,6 @@ public class Product {
     public void setCategory(Category mCat) {
         this.mCat = mCat;
     }
-
-    public float getPrice() { return mPrice; }
-    public String getName() { return mName; }
-    public String getBeschrijving() { return mBeschrijving; }
-    public long getWinkelID() { return mWinkelID; }
 
 
 }

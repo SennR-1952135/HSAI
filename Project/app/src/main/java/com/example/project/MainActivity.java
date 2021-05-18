@@ -4,12 +4,13 @@ import android.os.Bundle;
 
 import com.example.project.DataBase.DataBasee;
 import com.example.project.DataBase.ProductEntity;
-import com.example.project.ui.shopping_cart.ShoppingCart;
+import com.example.project.DataBase.StoreEntity;
+import com.example.project.Enums.Category;
 
-import com.example.project.ui.shopping_cart.ShoppingCartAdapter;
-import com.example.project.ui.wishlist.WishListAdapter;
-import com.example.project.ui.wishlist.Wishlist;
 
+import com.example.project.Enums.Color;
+import com.example.project.Enums.Gender;
+import com.example.project.Enums.Size;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,30 +18,14 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.room.Room;
 
-import java.util.Observable;
-import java.util.Observer;
+public class MainActivity extends AppCompatActivity {
 
-public class MainActivity extends AppCompatActivity implements Observer {
-
-
-    /*
-    private StoreDao storeDao;
-    private ProductDao productDao;
-    private StoreProductDao storeProductDao;
-    */
     private DataBasee db;
     private AppBarConfiguration mAppBarConfig;
     private BottomNavigationView mBottomNav;
     private NavController mNavController;
 
-
-    private ShoppingCart mShoppingCart;
-    private ShoppingCartAdapter mShoppingCartAdapter;
-
-    private Wishlist mWishList;
-    private WishListAdapter mWishlistAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +33,8 @@ public class MainActivity extends AppCompatActivity implements Observer {
         setContentView(R.layout.activity_main);
         setUpBottomNav();
 
-        databaseInit(true);
+        db = DataBasee.getDb(getApplicationContext());
+        insertData();
     }
     public void setUpBottomNav(){
         mBottomNav = findViewById(R.id.nav_view);
@@ -57,53 +43,23 @@ public class MainActivity extends AppCompatActivity implements Observer {
         NavigationUI.setupActionBarWithNavController(this, mNavController, mAppBarConfig);
         NavigationUI.setupWithNavController(mBottomNav, mNavController);
     }
-    private void databaseInit(boolean loadData){
-        db = DataBasee.getDb(getApplicationContext());
+    private void insertData(){
         db.clearAllTables();
+        db.mAppDao().deleteProducts();
+        db.mAppDao().removeAllInCart();
 
-        if(loadData){
-            /*
-            storeDao.insert(new Store("C&A", "Diepenbeek"));
-            storeDao.insert(new Store("H&M", "Hasselt"));
-            productDao.insert(new Product("Levi's T-shirt", "een random tshirt van levi's", 63.2f, storeDao.getIDByName("C&A")));
-            productDao.insert(new Product("Levi's T-shirt2", "een random tshirt van levi's", 60f, storeDao.getIDByName("H&M")));
-            productDao.insert(new Product("Levi's T-shirt3", "een random tshirt van levi's", 63.2f, storeDao.getIDByName("C&A")));
-            productDao.insert(new Product("Levi's T-shirt4", "een random tshirt van levi's", 50f, storeDao.getIDByName("H&M")));
-            productDao.insert(new Product("Random andere T-shirt", "een random tshirt van levi's", 50f, storeDao.getIDByName("H&M")));
-            productDao.insert(new Product("Random andere T-shirt", "een random tshirt van levi's", 50f, storeDao.getIDByName("C&A")));
-            productDao.insert(new Product("Random Broek", "een random tshirt van levi's", 50f, storeDao.getIDByName("H&M")));
-            productDao.insert(new Product("Random Broek", "een random tshirt van levi's", 50f, storeDao.getIDByName("C&A")));
-            productDao.insert(new Product("Random andere Broek", "een random tshirt van levi's", 50f, storeDao.getIDByName("C&A")));
-            productDao.insert(new Product("Levi's T-shirt11", "een random tshirt van levi's", 63.2f, storeDao.getIDByName("C&A")));
-            productDao.insert(new Product("Levi's T-shirt22", "een random tshirt van levi's", 60f, storeDao.getIDByName("H&M")));
-            productDao.insert(new Product("Levi's T-shirt33", "een random tshirt van levi's", 63.2f, storeDao.getIDByName("C&A")));
-            productDao.insert(new Product("Levi's T-shirt44", "een random tshirt van levi's", 50f, storeDao.getIDByName("H&M")));
-            productDao.insert(new Product("Random andere T-shirt1", "een random tshirt van levi's", 50f, storeDao.getIDByName("H&M")));
-            productDao.insert(new Product("Random andere T-shirt22", "een random tshirt van levi's", 50f, storeDao.getIDByName("C&A")));
-            productDao.insert(new Product("Random Broek2", "een random tshirt van levi's", 50f, storeDao.getIDByName("H&M")));
-            productDao.insert(new Product("Random Broek3", "een random tshirt van levi's", 50f, storeDao.getIDByName("C&A")));
-            productDao.insert(new Product("Random andere Broek1", "een random tshirt van levi's", 50f, storeDao.getIDByName("C&A")));
-             */
-            ProductEntity p = new ProductEntity();
-            p.setName("Zwarte Shirt");p.setShop("H&M");p.setPrice(10.99f);p.setDiscount(0f);p.setCategory(Category.SHIRT);p.setDescription("Zwarte shirt met streep");p.setDiscount(8.55f);
-            db.mAppDao().createProduct(p);
-            db.mAppDao().createProduct(p);
-            db.mAppDao().createProduct(p);
-            db.mAppDao().createProduct(p);
-            db.mAppDao().createProduct(p);
-        }
+
+        StoreEntity s1 = new StoreEntity("ZARA", 50.930462, 5.337660);
+        StoreEntity s2 = new StoreEntity("H&M", 50.934846, 5.336248);
+        StoreEntity s3 = new StoreEntity("BERSHKA", 50.934846, 5.336248);
+        db.mAppDao().createStore(s1);db.mAppDao().createStore(s2);db.mAppDao().createStore(s3);
+
+        db.mAppDao().createProduct(new ProductEntity("Zwarte Shirt", "Zwarte shirt met streep", 10.99f, 0f, R.drawable.shirt, Category.TSHIRT, s1.getID(),s1.getName(), Color.GREEN, Gender.UNISEX, Size.M ));
+        db.mAppDao().createProduct(new ProductEntity("Blue Pants", "Some blue pants with stripes", 10.99f, 0f, R.drawable.shirt, Category.TSHIRT, s2.getID(),s2.getName(), Color.GREEN, Gender.UNISEX, Size.M ));
+        db.mAppDao().createProduct(new ProductEntity("Zwarte Shirt", "Zwarte shirt met streep", 20.99f, 25.0f, R.drawable.shirt, Category.PANTS, s2.getID(),s2.getName(), Color.GREEN, Gender.FEMALE, Size.S ));
+        db.mAppDao().createProduct(new ProductEntity("Zwarte Shirt", "Zwarte shirt met streep", 10.99f, 10.0f, R.drawable.shirt, Category.TSHIRT, s3.getID(),s3.getName(), Color.GREEN, Gender.MALE, Size.M ));
+
 
     }
-    @Override
 
-    public void update(Observable o, Object arg) {
-        //setCount(this, mShoppingCart.getCount());
-        //updateTotalBasket();
-        //mShoppingCartAdapter.notifyDataSetChanged();
-    }
-
-    public void addToWishlist(Product product) {
-        mWishList.addItem(product);
-        //WishlistAdapter.notifyDataSetChanged();
-    }
 }

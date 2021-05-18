@@ -1,13 +1,11 @@
 package com.example.project.ui.home;
 
 
-import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -18,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.project.DataBase.DataBasee;
 import com.example.project.DataBase.ProductEntity;
 import com.example.project.Product;
-import com.example.project.Promotion;
 import com.example.project.R;
 
 import java.util.ArrayList;
@@ -29,6 +26,10 @@ public class HomeFragment extends Fragment {
     private ArrayList<Product> mPopularList;
     private ProductAdapter mPopularAdapter;
     private LinearLayoutManager mPopularLayoutManager;
+
+    private ArrayList<Product> mPromoList;
+    private ProductAdapter mPromoAdapter;
+    private LinearLayoutManager mPromoLayoutManager;
 
 
     public HomeFragment(){ }
@@ -42,12 +43,16 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mPopularList = new ArrayList<Product>();
         mPopularAdapter = new ProductAdapter(mPopularList, this);
+
+        mPromoList = new ArrayList<Product>();
+        mPromoAdapter = new ProductAdapter(mPromoList, this);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setupPopulars();
+        setupPromos();
     }
 
     private void setupPopulars(){
@@ -59,6 +64,15 @@ public class HomeFragment extends Fragment {
         popularRecyclerView.setAdapter(mPopularAdapter);
         getPopularItems();
     }
+    private void setupPromos(){
+        RecyclerView promoRecyclerView = getView().findViewById(R.id.promotion_list);
+        mPromoLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        mPromoLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        promoRecyclerView.setLayoutManager(mPromoLayoutManager);
+        promoRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        promoRecyclerView.setAdapter(mPromoAdapter);
+        getPromoItems();
+    }
 
     public void getPopularItems(){
         DataBasee db = DataBasee.getDb(getActivity());
@@ -66,12 +80,24 @@ public class HomeFragment extends Fragment {
 
         Drawable img = getResources().getDrawable(R.drawable.shirt);
         for(ProductEntity dbItem : products_from_db){
-            Product newProd = new Product(dbItem.getName(), dbItem.getShop(), dbItem.getDescription(),dbItem.getPrice(), dbItem.getDiscount(), img , dbItem.getCategoryInEnum());
-            mPopularList.add(newProd);
+            if(dbItem.getDiscount()==0.0f) {
+                Product newProd = new Product(dbItem.getId(),dbItem.getName(), dbItem.getShop(), dbItem.getDescription(), dbItem.getPrice(), dbItem.getDiscount(), img, dbItem.getCategory());
+                mPopularList.add(newProd);
+            }
         }
 
+    }
+    public void getPromoItems(){
+        DataBasee db = DataBasee.getDb(getActivity());
+        List<ProductEntity> products_from_db = db.mAppDao().getAllProducts();
 
-
+        Drawable img = getResources().getDrawable(R.drawable.shirt);
+        for(ProductEntity dbItem : products_from_db){
+            if(dbItem.getDiscount()!=0.0f){
+                Product newProd = new Product(dbItem.getId(),dbItem.getName(), dbItem.getShop(), dbItem.getDescription(),dbItem.getPrice(), dbItem.getDiscount(), img , dbItem.getCategory());
+                mPromoList.add(newProd);
+            }
+        }
     }
 
 }
