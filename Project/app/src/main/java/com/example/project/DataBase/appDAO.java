@@ -18,27 +18,27 @@ public interface appDAO {
     void insertProducts(ProductEntity products);
 
     @Update
-    void updateProduct(ProductEntity product);
+    void updateProduct(ProductEntity productEntity);
 
     @Delete
-    void deleteProduct(ProductEntity product);
+    void deleteProduct(ProductEntity productEntity);
 
-    @Query("Select id FROM Products WHERE name like :name LIMIT 1")
+    @Query("Select id FROM Product WHERE name like :name LIMIT 1")
     long getPIDByName(String name);
 
-    @Query("SELECT * FROM Products WHERE name LIKE :p_name LIMIT 1")
+    @Query("SELECT * FROM Product WHERE name LIKE :p_name LIMIT 1")
     ProductEntity getProduct(String p_name);
 
-    @Query("SELECT * FROM Products WHERE id LIKE :p_id LIMIT 1")
+    @Query("SELECT * FROM Product WHERE id LIKE :p_id LIMIT 1")
     ProductEntity getProduct(int p_id);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void createProduct(ProductEntity product);
+    void createProduct(ProductEntity productEntity);
 
-    @Query("SELECT * FROM Products")
+    @Query("SELECT * FROM Product")
     List<ProductEntity> getAllProducts();
 
-    @Query("DELETE FROM Products")
+    @Query("DELETE FROM Product")
     void deleteProducts();
 
     @Query("SELECT * FROM Stores WHERE name LIKE :p_name LIMIT 1")

@@ -10,18 +10,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project.DataBase.DataBasee;
-import com.example.project.DataBase.ProductInCart;
 import com.example.project.DataBase.ProductInWishlist;
-import com.example.project.Product;
+import com.example.project.ProductClass;
 import com.example.project.R;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -115,14 +112,14 @@ public class WishlistFragment extends Fragment implements Observer {
         System.out.println("STORE"+getGlobalStoreName());
         if(getGlobalStoreName()==""){
             for(ProductInWishlist i:p){
-                WishListItem m = new WishListItem(new Product(i.getProductid(),i.getProductname(),i.getShopname(),i.getPrice(),i.getOldprice(),img));
+                WishListItem m = new WishListItem(new ProductClass(i.getProductid(),i.getProductname(),i.getShopname(),i.getPrice(),i.getOldprice(),img));
                 mWishlist.getItems().add(m);
             }
         }
         else{
             ArrayList<WishListItem> rest = new ArrayList<>();
             for(ProductInWishlist i:p){
-                WishListItem m = new WishListItem(new Product(i.getProductid(),i.getProductname(),i.getShopname(),i.getPrice(),i.getOldprice(),img));
+                WishListItem m = new WishListItem(new ProductClass(i.getProductid(),i.getProductname(),i.getShopname(),i.getPrice(),i.getOldprice(),img));
                 if(i.getShopname().equals(getGlobalStoreName())){
                     mWishlist.getItems().add(m);
                 }

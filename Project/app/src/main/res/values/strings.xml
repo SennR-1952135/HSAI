@@ -12,5 +12,5 @@
     <string name="title_label_in_store_queue_checkout">Checkout:</string>
     <string name="title_label_in_store_queue_fitting_rooms">Fitting rooms:</string>
     <string name="title_btn_in_store_search_new_store">Select new Store</string>
-    <string name="title_btn_in_store_scanner">Scan product</string>
+    <string name="title_btn_in_store_scanner">Scan productEntity</string>
 </resources>

@@ -16,17 +16,17 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.project.DataBase.DataBasee;
 import com.example.project.DataBase.ProductInWishlist;
-import com.example.project.Product;
+import com.example.project.ProductClass;
 import com.example.project.R;
 import java.util.ArrayList;
 
 
 public class ProductAdapter extends RecyclerView.Adapter<com.example.project.ui.home.ProductAdapter.MyViewHolder> {
-    private ArrayList<Product> mProductList;
+    private ArrayList<ProductClass> mProductList;
     private Fragment mContext;
     boolean addedToWishlist = false;
 
-    public ProductAdapter(ArrayList<Product> list, Fragment context){
+    public ProductAdapter(ArrayList<ProductClass> list, Fragment context){
         mProductList = list;
         mContext = context;
     }
@@ -65,7 +65,7 @@ public class ProductAdapter extends RecyclerView.Adapter<com.example.project.ui.
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int pos){
 
-        Product mProd = mProductList.get(pos);
+        ProductClass mProd = mProductList.get(pos);
         holder.prodImage.setImageDrawable(mProd.getImage());
         holder.itemName.setText(mProd.getName());
         holder.storeName.setText(mProd.getStore());

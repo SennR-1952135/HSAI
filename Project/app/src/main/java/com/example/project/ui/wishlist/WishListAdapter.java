@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project.DataBase.DataBasee;
 import com.example.project.DataBase.ProductInCart;
-import com.example.project.Product;
+import com.example.project.ProductClass;
 import com.example.project.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -29,7 +29,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.MyViewHolder> {
     private WishlistFragment fragment;
     private Wishlist mWishlist;
-    private Product mProd;
+    private ProductClass mProd;
 
     public WishListAdapter(WishlistFragment fragment, Wishlist list){
         mWishlist = list;

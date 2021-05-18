@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project.DataBase.DataBasee;
 import com.example.project.DataBase.ProductEntity;
-import com.example.project.Product;
+import com.example.project.ProductClass;
 import com.example.project.R;
 
 import java.util.ArrayList;
@@ -23,11 +23,11 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    private ArrayList<Product> mPopularList;
+    private ArrayList<ProductClass> mPopularList;
     private ProductAdapter mPopularAdapter;
     private LinearLayoutManager mPopularLayoutManager;
 
-    private ArrayList<Product> mPromoList;
+    private ArrayList<ProductClass> mPromoList;
     private ProductAdapter mPromoAdapter;
     private LinearLayoutManager mPromoLayoutManager;
 
@@ -41,10 +41,10 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPopularList = new ArrayList<Product>();
+        mPopularList = new ArrayList<ProductClass>();
         mPopularAdapter = new ProductAdapter(mPopularList, this);
 
-        mPromoList = new ArrayList<Product>();
+        mPromoList = new ArrayList<ProductClass>();
         mPromoAdapter = new ProductAdapter(mPromoList, this);
     }
 
@@ -81,7 +81,7 @@ public class HomeFragment extends Fragment {
         Drawable img = getResources().getDrawable(R.drawable.shirt);
         for(ProductEntity dbItem : products_from_db){
             if(dbItem.getDiscount()==0.0f) {
-                Product newProd = new Product(dbItem.getId(),dbItem.getName(), dbItem.getShop(), dbItem.getDescription(), dbItem.getPrice(), dbItem.getDiscount(), img, dbItem.getCategory());
+                ProductClass newProd = new ProductClass(dbItem.getId(),dbItem.getName(), dbItem.getShop(), dbItem.getDescription(), dbItem.getPrice(), dbItem.getDiscount(), img, dbItem.getCategory());
                 mPopularList.add(newProd);
             }
         }
@@ -94,7 +94,7 @@ public class HomeFragment extends Fragment {
         Drawable img = getResources().getDrawable(R.drawable.shirt);
         for(ProductEntity dbItem : products_from_db){
             if(dbItem.getDiscount()!=0.0f){
-                Product newProd = new Product(dbItem.getId(),dbItem.getName(), dbItem.getShop(), dbItem.getDescription(),dbItem.getPrice(), dbItem.getDiscount(), img , dbItem.getCategory());
+                ProductClass newProd = new ProductClass(dbItem.getId(),dbItem.getName(), dbItem.getShop(), dbItem.getDescription(),dbItem.getPrice(), dbItem.getDiscount(), img , dbItem.getCategory());
                 mPromoList.add(newProd);
             }
         }

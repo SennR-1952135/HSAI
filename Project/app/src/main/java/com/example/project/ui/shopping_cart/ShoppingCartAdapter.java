@@ -27,7 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.project.DataBase.DataBasee;
 import com.example.project.DataBase.ProductInWishlist;
 
-import com.example.project.Product;
+import com.example.project.ProductClass;
 import com.example.project.R;
 
 
@@ -84,7 +84,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
     public void onBindViewHolder(@NonNull MyViewHolder holder, int pos){
 
         ShoppingCartItem cartItem = mCart.getItems().get(pos);
-        Product mProd = cartItem.getItem();
+        ProductClass mProd = cartItem.getItem();
         if(mProd!=null){
 
             holder.name.setText(mProd.getName()+" - "+mProd.getStore());

@@ -1,19 +1,19 @@
 package com.example.project.ui.shopping_cart;
 
-import com.example.project.Product;
+import com.example.project.ProductClass;
 
 public class ShoppingCartItem {
-    private Product mItem;
+    private ProductClass mItem;
     private int mQuantity;
     private String mSize;
 
-    public ShoppingCartItem(Product item){
+    public ShoppingCartItem(ProductClass item){
         mItem = item;
         mQuantity = 1;
     }
     // Getters:
     public int getQuantity(){return mQuantity;}
-    public Product getItem(){return mItem;}
+    public ProductClass getItem(){return mItem;}
 
     // Setters:
     public void setQuantity(int quantity){mQuantity = quantity;}

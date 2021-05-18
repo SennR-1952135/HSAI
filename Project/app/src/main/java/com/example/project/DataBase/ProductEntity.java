@@ -61,7 +61,7 @@ public class ProductEntity {
 
 
     public ProductEntity(){}
-    public ProductEntity(String name, String discription , float price, float discountAmount, int image, Category category, int storeID,String storeName, Color color, Gender gender, Size size){
+    public ProductEntity(String name, String discription , float price, float discountAmount, int image, Category category, int storeID, String storeName, Color color, Gender gender, Size size){
         this.name = name;
         this.id = (int) productCount++;
         this.StoreID = storeID;

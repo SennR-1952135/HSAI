@@ -8,7 +8,7 @@ import com.example.project.Enums.*;
 
 import java.util.ArrayList;
 
-public class Product {
+public class ProductClass {
 
     private String mName;
     private String mStore;
@@ -45,7 +45,7 @@ public class Product {
     private Category mCat;
 
 
-    public Product(int id,String name, String store, String discription , float prodPrice, float withoutDiscount, Drawable img, Category cat){
+    public ProductClass(int id, String name, String store, String discription , float prodPrice, float withoutDiscount, Drawable img, Category cat){
         mProductId = id;
         mName = name;
         mWinkel = store;
@@ -56,7 +56,7 @@ public class Product {
         mCat = cat;
     }
 
-    public Product(int id, String name, String store,float prodPrice, float withoutDiscount, Drawable img){
+    public ProductClass(int id, String name, String store, float prodPrice, float withoutDiscount, Drawable img){
         mProductId = id;
         mName = name;
         mStore = store;

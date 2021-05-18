@@ -20,19 +20,16 @@ import com.example.project.DataBase.DataBasee;
 import com.example.project.DataBase.ProductEntity;
 import com.example.project.DataBase.ProductInCart;
 import com.example.project.DataBase.ProductInWishlist;
-import com.example.project.Product;
+import com.example.project.ProductClass;
 import com.example.project.R;
-import com.example.project.Enums.*;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-
-import org.w3c.dom.Text;
 
 /**
  * @author Melih Demirel
  */
 
 public class productFragment extends Fragment {
-    private Product mProd;
+    private ProductClass mProd;
     private final productFragment m_self_ref = this;
     public productFragment(){}
     private DataBasee db;
@@ -54,7 +51,7 @@ public class productFragment extends Fragment {
             db = DataBasee.getDb(getActivity());
             int prodIdd = Integer.parseInt(prodId);
             dbP = db.mAppDao().getProduct(prodIdd);
-            mProd = new Product(dbP.getId(),dbP.getName(), dbP.getShop(), dbP.getDescription(), dbP.getPrice(), dbP.getDiscount(), img , dbP.getCategory());
+            mProd = new ProductClass(dbP.getId(),dbP.getName(), dbP.getShop(), dbP.getDescription(), dbP.getPrice(), dbP.getDiscount(), img , dbP.getCategory());
         }
     }
 

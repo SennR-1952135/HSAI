@@ -2,7 +2,6 @@ package com.example.project.ui.in_store;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
@@ -44,7 +43,7 @@ public class scanFragment extends Fragment {
     private String barcodeData;
     private View rootView;
     private scanFragment frag;
-    private List<ProductEntity> products;
+    private List<ProductEntity> productEntities;
 
     @Nullable
     @Override
@@ -54,7 +53,7 @@ public class scanFragment extends Fragment {
         surfaceView = rootView.findViewById(R.id.surface_view);
         barcodeText = rootView.findViewById(R.id.barcode_text);
         DataBasee db = DataBasee.getDb(getActivity());
-        products = db.mAppDao().getAllProducts();
+        productEntities = db.mAppDao().getAllProducts();
         initialiseDetectorsAndSources();
         return rootView;
     }
@@ -129,7 +128,7 @@ public class scanFragment extends Fragment {
                                 toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
                             }
                             Bundle bundle = new Bundle();
-                            bundle.putString("itemId", Integer.toString(products.get(1).getId()));
+                            bundle.putString("itemId", Integer.toString(productEntities.get(1).getId()));
                             NavHostFragment.findNavController(getParentFragment()).navigate(R.id.productFragment, bundle);
                         }
                     });

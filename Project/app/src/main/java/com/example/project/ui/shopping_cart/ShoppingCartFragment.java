@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -16,10 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.project.DataBase.DataBasee;
 import com.example.project.DataBase.ProductInCart;
-import com.example.project.DataBase.ProductInWishlist;
-import com.example.project.Product;
+import com.example.project.ProductClass;
 import com.example.project.R;
-import com.example.project.ui.wishlist.WishListItem;
 
 
 import java.util.ArrayList;
@@ -81,7 +78,7 @@ public class ShoppingCartFragment extends Fragment implements Observer {
         System.out.println("STORE"+getGlobalStoreName());
         if(getGlobalStoreName()==""){
             for(ProductInCart i:p){
-                ShoppingCartItem m = new ShoppingCartItem(new Product(i.getProductid(),i.getProductname(),i.getShopname(),i.getPrice(),i.getOldprice(),img));
+                ShoppingCartItem m = new ShoppingCartItem(new ProductClass(i.getProductid(),i.getProductname(),i.getShopname(),i.getPrice(),i.getOldprice(),img));
                 m.setQuantity(i.getCount());
                 m.setSize(i.getSize());
                 mShoppingCart.getItems().add(m);
@@ -90,7 +87,7 @@ public class ShoppingCartFragment extends Fragment implements Observer {
         else{
             ArrayList<ShoppingCartItem> rest = new ArrayList<>();
             for(ProductInCart i:p){
-                ShoppingCartItem m = new ShoppingCartItem(new Product(i.getProductid(),i.getProductname(),i.getShopname(),i.getPrice(),i.getOldprice(),img));
+                ShoppingCartItem m = new ShoppingCartItem(new ProductClass(i.getProductid(),i.getProductname(),i.getShopname(),i.getPrice(),i.getOldprice(),img));
                 if(i.getShopname().equals(getGlobalStoreName())){
                     mShoppingCart.getItems().add(m);
                 }

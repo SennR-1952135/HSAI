@@ -19,7 +19,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -33,7 +32,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.project.DataBase.DataBasee;
 import com.example.project.DataBase.ProductEntity;
 import com.example.project.DataBase.StoreEntity;
-import com.example.project.Product;
+import com.example.project.ProductClass;
 import com.example.project.R;
 import com.example.project.ui.home.ProductAdapter;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -52,7 +51,6 @@ import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.example.project.ui.in_store.scanFragment;
 
 public class InStoreFragment extends Fragment {
 
@@ -96,14 +94,14 @@ public class InStoreFragment extends Fragment {
     private static final String KEY_LOCATION = "location";
 
 
-    private ArrayList<Product> mPromotionsList;
+    private ArrayList<ProductClass> mPromotionsList;
     private ProductAdapter mPromotionsAdapter;
     private LinearLayoutManager mPromotionsLayoutManager;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        mPromotionsList = new ArrayList<Product>();
+        mPromotionsList = new ArrayList<ProductClass>();
         mPromotionsAdapter = new ProductAdapter(mPromotionsList, this);
 
         inStoreViewModel =
@@ -279,7 +277,7 @@ public class InStoreFragment extends Fragment {
         Drawable img = getResources().getDrawable(R.drawable.shirt);
         for(ProductEntity dbItem : products_from_db){
             if(dbItem.getShop().equals(getGlobalStoreName()) && dbItem.getDiscount() != 0.0f){
-                Product newProd = new Product(dbItem.getId(),dbItem.getName(), dbItem.getShop(), dbItem.getDescription(), dbItem.getPrice(), dbItem.getDiscount(), img, dbItem.getCategory());
+                ProductClass newProd = new ProductClass(dbItem.getId(),dbItem.getName(), dbItem.getShop(), dbItem.getDescription(), dbItem.getPrice(), dbItem.getDiscount(), img, dbItem.getCategory());
                 mPromotionsList.add(newProd);
             }
         }
