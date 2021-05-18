@@ -25,7 +25,7 @@ public class Wishlist extends Observable {
     public float getTotal(){
         float total = 0;
         for(WishListItem i: mItems){
-            total+= dao.getPPriceByID(i.getItemID()) * i.getQuantity();
+            total+= i.getItem().getmPrice() * i.getQuantity();
         }
         return total;
     }
@@ -47,10 +47,10 @@ public class Wishlist extends Observable {
         setChanged();
         notifyObservers();
     }
-    public void addItem(long item){
+    public void addItem(Product item){
         // First check if item is already in wishlist.
         for(WishListItem i: mItems){
-            if(dao.getPNameByID(i.getItemID()).equals(dao.getPNameByID(item))){
+            if(i.getItem().getmName().equals(item.getmName())){
                 i.addOneQuantity();
                 setChanged();
                 notifyObservers();

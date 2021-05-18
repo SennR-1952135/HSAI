@@ -15,41 +15,40 @@ public class Product {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "ProductID")
-    public long mProductID;
+    private long mProductID;
 
     @ColumnInfo(name = "Price")
-    public float mPrice;
+    private float mPrice;
 
     @ColumnInfo(name = "Name")
-    public String mName;
+    private String mName;
 
     @ColumnInfo(name = "Discription")
-    public String mDiscription;
+    private String mDiscription;
 
     @ColumnInfo(name = "StoreID")
-    public long mStoreID;
+    private long mStoreID;
 
     @ColumnInfo(name = "Color")
-    public Color mColor;
+    private Color mColor;
 
     @ColumnInfo(name = "Discounted")
-    public boolean mDiscounted;
-    //private ArrayList<Size> mMaaten;
+    private boolean mDiscounted;
 
     @ColumnInfo(name = "Gender")
-    public Gender mGender;
+    private Gender mGender;
 
     @ColumnInfo(name = "DiscountAmount")
-    public float mDiscountAmount;
+    private float mDiscountAmount;
 
     @ColumnInfo(name = "Image")
-    public int mImage;
+    private int mImage;
 
     @ColumnInfo(name = "Category")
-    public Category mCategory;
+    private Category mCategory;
 
     @ColumnInfo(name = "Size")
-    public Size mSize;
+    private Size mSize;
 
 
     public Product(String name, String discription , float price, float discountAmount, int image, Category category, long storeID, Color color, Gender gender, Size size){
@@ -66,71 +65,95 @@ public class Product {
         this.mSize = size;
     }
 
+    /*
+    Getters and Setters
+     */
+
     public long getID() { return mProductID; }
 
-//    /*
-//    Getters AND SETTERS
-//     */
-//
-//    public String getName() {
-//        return mName;
-//    }
-//
-////    public void setName(String mName) {
-////        this.mName = mName;
-////    }
-//
-//    public String getStore() {
-//        return mStore;
-//    }
-//
-////    public void setStore(String mStore) {
-////        this.mStore = mStore;
-////    }
-//
-//    public float getPrice() {
-//        return mPrice;
-//    }
-//
-//    public void setPrice(float mPrice) {
-//        this.mPrice = mPrice;
-//    }
-//
-//    public float getDiscountPrice() {
-//        return mWithoutDiscountPrice;
-//    }
-//
-//    public void setDiscountPrice(float mDiscountPrice) {
-//        this.mWithoutDiscountPrice = mDiscountPrice;
-//    }
-//
-//    public String getDiscription() {
-//        return mDiscription;
-//    }
-//
-//    public void setDiscription(String mDiscription) {
-//        this.mDiscription = mDiscription;
-//    }
-//
-//    public Drawable getImage() {
-//        return mImage;
-//    }
-//
-//    public void setImage(Drawable mImage) {
-//        this.mImage = mImage;
-//    }
-//    public Category getCategory() {
-//        return mCat;
-//    }
-//
-//    public void setCategory(Category mCat) {
-//        this.mCat = mCat;
-//    }
-//
-//    public float getPrice() { return mPrice; }
-//    public String getName() { return mName; }
-//    public String getBeschrijving() { return mBeschrijving; }
-//    public long getWinkelID() { return mWinkelID; }
+    public float getmPrice() { return mPrice; }
 
+    public void setmPrice(float mPrice) {
+        this.mPrice = mPrice;
+    }
 
+    public String getmName() {
+        return mName;
+    }
+
+    public void setmName(String mName) {
+        this.mName = mName;
+    }
+
+    public String getmDiscription() {
+        return mDiscription;
+    }
+
+    public void setmDiscription(String mDiscription) {
+        this.mDiscription = mDiscription;
+    }
+
+    public long getmStoreID() {
+        return mStoreID;
+    }
+
+    public void setmStoreID(long mStoreID) {
+        this.mStoreID = mStoreID;
+    }
+
+    public Color getmColor() {
+        return mColor;
+    }
+
+    public void setmColor(Color mColor) {
+        this.mColor = mColor;
+    }
+
+    public boolean ismDiscounted() {
+        return mDiscounted;
+    }
+
+    public void setmDiscounted(boolean mDiscounted) {
+        this.mDiscounted = mDiscounted;
+    }
+
+    public Gender getmGender() {
+        return mGender;
+    }
+
+    public void setmGender(Gender mGender) {
+        this.mGender = mGender;
+    }
+
+    public float getmDiscountAmount() {
+        return mDiscountAmount;
+    }
+
+    public void setmDiscountAmount(float mDiscountAmount) {
+        this.mDiscountAmount = mDiscountAmount;
+    }
+
+    public int getmImage() {
+        return mImage;
+    }
+
+    public void setmImage(int mImage) {
+        this.mImage = mImage;
+    }
+
+    public Category getmCategory() {
+        return mCategory;
+    }
+
+    public void setmCategory(Category mCategory) {
+        this.mCategory = mCategory;
+    }
+
+    public Size getmSize() {
+        return mSize;
+    }
+
+    public void setmSize(Size mSize) {
+        this.mSize = mSize;
+    }
 }

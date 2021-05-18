@@ -10,23 +10,57 @@ public class Store {
     @PrimaryKey(autoGenerate = true)
     @NonNull
     @ColumnInfo(name = "StoreID")
-    public int ID;
+    private int mStoreID;
 
     @ColumnInfo(name = "Name")
     @NonNull
-    public String mName;
+    private String mName;
 
     @ColumnInfo(name = "Lat")
-    public double mLat;
+    private double mLat;
 
     @ColumnInfo(name = "Long")
-    public double mLongg;
+    private double mLongg;
 
 
-    public Store(String name, double lat, double longg){
+    public Store(@NonNull String name, double lat, double longg){
         this.mName = name;
         this.mLat = lat;
         this.mLongg = longg;
     }
+
+    /*
+    Getters and Setters
+     */
+
+    public int getmStoreID() {
+        return mStoreID;
+    }
+
+    @NonNull
+    public String getmName() {
+        return mName;
+    }
+
+    public void setmName(@NonNull String mName) {
+        this.mName = mName;
+    }
+
+    public double getmLat() {
+        return mLat;
+    }
+
+    public void setmLat(double mLat) {
+        this.mLat = mLat;
+    }
+
+    public double getmLongg() {
+        return mLongg;
+    }
+
+    public void setmLongg(double mLongg) {
+        this.mLongg = mLongg;
+    }
+
 
 }

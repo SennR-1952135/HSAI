@@ -27,11 +27,11 @@ import java.util.ArrayList;
 
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHolder> {
-    private ArrayList<Long> mProductList;
+    private ArrayList<Product> mProductList;
     private Fragment mContext;
     private Dao mdao;
 
-    public ProductAdapter(ArrayList<Long> list, Fragment context, Dao dao){
+    public ProductAdapter(ArrayList<Product> list, Fragment context, Dao dao){
         this.mProductList = list;
         this.mContext = context;
         this.mdao = dao;
@@ -68,19 +68,19 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     }
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int pos){
-        long prodID = mProductList.get(pos);
-        holder.prodImage.setImageResource(mdao.getPImageResourceByID(prodID));
-        holder.itemName.setText(mdao.getPNameByID(prodID));
-        holder.storeName.setText(mdao.getSNameByID(mdao.getStoreIDByProductID(prodID)));
-        if(mdao.getPDiscountedByID(prodID)){
-            float discountedPrice = mdao.getPPriceByID(prodID) * (1- (mdao.getPDiscountAmountByID(prodID) / 100));
+        Product product = mProductList.get(pos);
+        holder.prodImage.setImageResource(product.getmImage());
+        holder.itemName.setText(product.getmName());
+        holder.storeName.setText(mdao.getStoreByID(product.getmStoreID()).getmName());
+        if(product.ismDiscounted()){
+            float discountedPrice = product.getmPrice() * (1- (product.getmDiscountAmount() / 100));
             holder.price.setText("€ " + new DecimalFormat("###.##").format(discountedPrice));
             holder.price.setTextColor(mContext.getResources().getColor(R.color.red));
-            holder.oldPrice.setText("€ " + new DecimalFormat("###.##").format(mdao.getPPriceByID(prodID)));
+            holder.oldPrice.setText("€ " + new DecimalFormat("###.##").format(product.getmPrice()));
             holder.oldPrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         }
         else{
-            holder.price.setText("€ " + new DecimalFormat("###.##").format(mdao.getPPriceByID(prodID)));
+            holder.price.setText("€ " + new DecimalFormat("###.##").format(product.getmPrice()));
             holder.oldPrice.setText("");
         }
 
@@ -92,7 +92,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 
         holder.cardView.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-            bundle.putString("itemName", mdao.getPNameByID(prodID));
+            bundle.putString("itemName", product.getmName());
             (NavHostFragment.findNavController(mContext)).navigate(R.id.productFragment);
         });
     }

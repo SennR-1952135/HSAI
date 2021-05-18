@@ -67,11 +67,11 @@ public class MainActivity extends AppCompatActivity implements Observer {
             Store s1 = new Store("zara", 50.930462, 5.337660);
             Store s2 = new Store("h&m", 50.934846, 5.336248);
             dao.insertStores(s1, s2);
-            Product p0 = new Product("Zwarte Shirt", "Zwarte shirt met streep", 10.99f, 0f, R.drawable.shirt, Category.TSHIRT, s1.ID, Color.BLACK, Gender.UNISEX, Size.M );
-            Product p1 = new Product("Zwarte Shirt", "Zwarte shirt met streep", 10.99f, 0f, R.drawable.shirt, Category.TSHIRT, s1.ID, Color.BLACK, Gender.UNISEX, Size.S );
-            Product p2 = new Product("Zwarte Shirt", "Zwarte shirt met streep", 10.99f, 0f, R.drawable.shirt, Category.TSHIRT, s2.ID, Color.BLACK, Gender.UNISEX, Size.L );
-            Product p3 = new Product("Zwarte Shirt", "Zwarte shirt met streep", 10.99f, 0f, R.drawable.shirt, Category.TSHIRT, s1.ID, Color.BLACK, Gender.UNISEX, Size.XL );
-            Product p4 = new Product("Zwarte Shirt", "Zwarte shirt met streep", 10.99f, 0f, R.drawable.shirt, Category.TSHIRT, s2.ID, Color.BLACK, Gender.UNISEX, Size.XS );
+            Product p0 = new Product("Zwarte Shirt", "Zwarte shirt met streep", 10.99f, 0f, R.drawable.shirt, Category.TSHIRT, s1.getmStoreID(), Color.BLACK, Gender.UNISEX, Size.M );
+            Product p1 = new Product("Zwarte Shirt", "Zwarte shirt met streep", 10.99f, 0f, R.drawable.shirt, Category.TSHIRT, s1.getmStoreID(), Color.BLACK, Gender.UNISEX, Size.S );
+            Product p2 = new Product("Zwarte Shirt", "Zwarte shirt met streep", 10.99f, 0f, R.drawable.shirt, Category.TSHIRT, s2.getmStoreID(), Color.BLACK, Gender.UNISEX, Size.L );
+            Product p3 = new Product("Zwarte Shirt", "Zwarte shirt met streep", 10.99f, 0f, R.drawable.shirt, Category.TSHIRT, s1.getmStoreID(), Color.BLACK, Gender.UNISEX, Size.XL );
+            Product p4 = new Product("Zwarte Shirt", "Zwarte shirt met streep", 10.99f, 0f, R.drawable.shirt, Category.TSHIRT, s2.getmStoreID(), Color.BLACK, Gender.UNISEX, Size.XS );
             dao.insertProducts(p0, p1, p2, p3, p4, p2, p3, p4, p1, p0, p2, p0);
 //            ProductEntity p = new ProductEntity();
 //            p.setName("Zwarte Shirt");p.setShop("H&M");p.setPrice(10.99f);p.setDiscount(0f);p.setCategory(Category.SHIRT);p.setDescription("Zwarte shirt met streep");p.setDiscount(8.55f);
@@ -91,8 +91,8 @@ public class MainActivity extends AppCompatActivity implements Observer {
         //mShoppingCartAdapter.notifyDataSetChanged();
     }
 
-    public void addToWishlist(long productID) {
-        mWishList.addItem(productID);
+    public void addToWishlist(Product product) {
+        mWishList.addItem(product);
         //WishlistAdapter.notifyDataSetChanged();
     }
 }

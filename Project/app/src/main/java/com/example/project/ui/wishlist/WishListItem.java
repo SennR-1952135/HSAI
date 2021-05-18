@@ -4,19 +4,19 @@ package com.example.project.ui.wishlist;
 import com.example.project.DataBase.Product;
 
 public class WishListItem {
-    private long mItemID;
+    private Product mItem;
     private int mQuantity;
     private boolean mChecked;
 
-    public WishListItem(long itemID){
-        mItemID = itemID;
+    public WishListItem(Product item){
+        mItem = item;
         mChecked = false;
         mQuantity = 1;
     }
     // Getters:
     public int getQuantity(){return mQuantity;}
     public boolean isChecked(){return mChecked;}
-    public long getItemID(){return mItemID;}
+    public Product getItem(){return mItem;}
 
     // Setters:
     public void setQuantity(int quantity){mQuantity = quantity;}

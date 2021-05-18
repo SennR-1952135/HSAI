@@ -25,7 +25,7 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    private ArrayList<Long> mPopularList;
+    private ArrayList<Product> mPopularList;
     private ProductAdapter mPopularAdapter;
     private LinearLayoutManager mPopularLayoutManager;
 
@@ -39,7 +39,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPopularList = new ArrayList<Long>();
+        mPopularList = new ArrayList<Product>();
         mPopularAdapter = new ProductAdapter(mPopularList, this, AppDatabase.getDb(getActivity()).dao());
     }
 
@@ -61,16 +61,13 @@ public class HomeFragment extends Fragment {
 
     public void getPopularItems(){
         Dao dao = AppDatabase.getDb(getActivity()).dao();
-        mPopularList = new ArrayList<Long>(dao.getAllProductIDs());
+        mPopularList = new ArrayList<Product>(dao.getAllProducts());
 
 //        Drawable img = getResources().getDrawable(R.drawable.shirt);
 //        for(ProductEntity dbItem : products_from_db){
 //            Product newProd = new Product(dbItem.getName(), dbItem.getShop(), dbItem.getDescription(),dbItem.getPrice(), dbItem.getDiscount(), img , dbItem.getCategoryInEnum());
 //            mPopularList.add(newProd);
 //        }
-
-
-
     }
 
 }
