@@ -48,7 +48,7 @@ public class Product {
     public Product(int id, String name, String store, String discription , float prodPrice, float withoutDiscount, Drawable img, Category cat){
         mProductId = id;
         mName = name;
-        mWinkel = store;
+        mStore = store;
         mDiscription = discription;
         mPrice = prodPrice;
         mWithoutDiscountPrice = withoutDiscount;

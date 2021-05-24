@@ -12,7 +12,7 @@
         android:layout_height="59dp"
         android:layout_marginStart="124dp"
         android:layout_marginTop="200dp"
-        android:text="Pay with App"
+        android:text="Pay with Card"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,7 +22,7 @@
         android:layout_height="59dp"
         android:layout_marginStart="124dp"
         android:layout_marginTop="60dp"
-        android:text="Mastercard"
+        android:text="PAY IN STORE"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appPayment" />
 
@@ -49,5 +49,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/q"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="68dp"
+        android:text="No delivery at home, only pick up in store."
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/appPayment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

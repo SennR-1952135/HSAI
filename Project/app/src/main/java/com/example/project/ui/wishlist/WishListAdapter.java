@@ -103,6 +103,7 @@ public class WishListAdapter extends RecyclerView.Adapter<WishListAdapter.MyView
 
             if (holder.delete != null) {
                 holder.delete.setOnClickListener(v -> {
+                    Toast.makeText(fragment.getContext(), "Item removed from wishlist!", Toast.LENGTH_SHORT).show();
                     mWishlist.removeItem(pos);
                     notifyDataSetChanged();
                 });

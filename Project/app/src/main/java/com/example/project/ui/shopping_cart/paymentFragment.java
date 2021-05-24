@@ -18,6 +18,8 @@ import com.example.project.DataBase.DataBasee;
 import com.example.project.DataBase.UserEntity;
 import com.example.project.R;
 
+import org.w3c.dom.Text;
+
 /**
  * @author Melih Demirel
  */
@@ -48,17 +50,21 @@ public class paymentFragment extends Fragment {
 
         Button goHome = view.findViewById(R.id.backBtn);
         TextView orderDone = view.findViewById(R.id.orderReceived);
+        TextView  a  = view.findViewById(R.id.q);
         app.setOnClickListener(v -> {
             app.setVisibility(View.INVISIBLE);
             card.setVisibility(View.INVISIBLE);
             orderDone.setVisibility(View.VISIBLE);
             goHome.setVisibility(View.VISIBLE);
+            a.setVisibility(View.INVISIBLE);
         });
         card.setOnClickListener(v -> {
+            a.setVisibility(View.INVISIBLE);
             app.setVisibility(View.INVISIBLE);
             card.setVisibility(View.INVISIBLE);
             orderDone.setVisibility(View.VISIBLE);
             goHome.setVisibility(View.VISIBLE);
+            orderDone.setText("You'll receive a mail with more information about the order.");
         });
 
         goHome.setOnClickListener(v -> {
